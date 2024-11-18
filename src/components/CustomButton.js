@@ -1,6 +1,7 @@
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import React from 'react';
 import {AppColors} from '../utils/Colors';
+import {vw,vh} from '../utils/dimension';
 
 const CustomButton = ({buttonTitle, onPress, disabled}) => {
   return (
@@ -29,13 +30,14 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   button: {
-    width: 343,
+    width: vw(343),
+    height:vh(44),
     borderRadius: 8,
-    marginTop: 30,
+    marginTop: vh(30),
   },
   textStyle: {
     color: 'white',
-    paddingVertical: 12,
+    paddingVertical: vh(12),
     fontSize: 18,
     textAlign: 'center',
   },

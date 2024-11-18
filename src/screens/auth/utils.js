@@ -1,35 +1,4 @@
-// import * as yup from 'yup';
 
-// export const loginInitialValue = {
-//   username: '',
-//   password: '',
-// };
-
-// export const validationSchema = yup.object().shape({
-//   username: yup.string().required('Username is required'),
-//   password: yup.string().required('Password is required'),
-// });
-
-// export const signupInitialValue = {
-//   mobileNumber: '',
-// };
-
-// export const SignupValidationSchema = yup.object().shape({
-//   mobileNumber: yup
-//     .string()
-//     .min(
-//       10,
-//       ({min}) =>
-//         `${'Mobile number must be'} ${min} ${'character'}`,
-//     )
-//     .required('Mobile Number is required')
-//     .matches(/^[789]\d{9}$/, 'Mobile number should be start from 7,8,9'),
-// });
-
-
-// utils/validation.js
-
-// Initial values for the login form
 export const loginInitialValue = {
   username: '',
   password: '',
@@ -40,13 +9,13 @@ export const validateLogin = (values) => {
   const errors = {};
 
   // Validate username
-  if (!values.username) {
-    errors.username = 'Username is required';
+ if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(values.username)) {
+    errors.username = 'Please enter a valid email address';
   }
 
   // Validate password
-  if (!values.password) {
-    errors.password = 'Password is required';
+ if (values.password.length < 6) {
+    errors.password = 'Password must be at least 6 characters long';
   }
 
   return errors; // Return errors object, if no errors, it will be an empty object

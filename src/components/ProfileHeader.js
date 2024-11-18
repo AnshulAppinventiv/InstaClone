@@ -1,5 +1,6 @@
-import {View, Text, Image, TouchableOpacity, Modal} from 'react-native';
+import {View, Text, Image, TouchableOpacity, StyleSheet} from 'react-native';
 import React, {useState} from 'react';
+import {vw, vh, SCREEN_WIDTH} from '../utils/dimension';
 
 const ProfileHeader = () => {
   const [open, setOpen] = useState(false);
@@ -8,97 +9,90 @@ const ProfileHeader = () => {
     setOpen(!open);
   };
   return (
-    <View style={{paddingHorizontal: 15, paddingTop: 10, height: 55}}>
-      <View
-        style={{
-          flexDirection: 'row',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-        }}>
-        <Text style={{fontSize: 24, fontWeight: '500', color: 'black'}}>
-          codebuilderstudio
-        </Text>
-        <View style={{flexDirection: 'row', alignItems: 'center'}}>
-          <TouchableOpacity style={{marginRight: 15}}>
+    <View style={styles.mainContainer}>
+      <View style={styles.subContainer}>
+        <View style={styles.accountIdContainer}>
+          <Image
+            source={require('../assets/icon/lock.png')}
+            style={styles.lockImg}
+          />
+          <Text style={styles.id}>singh_anshulpratap</Text>
+          <Image
+            source={require('../assets/icon/bottomArrow.png')}
+            style={styles.bottomArrow}
+          />
+        </View>
+        <View style={styles.iconContainer}>
+          <TouchableOpacity>
             <Image
-              style={{height: 24, width: 24}}
+              style={styles.addPostImg}
               source={require('../assets/footer/addPost.png')}
             />
           </TouchableOpacity>
           <TouchableOpacity onPress={handleModal}>
             <Image
-              style={{height: 20, width: 20, tintColor: 'black'}}
+              style={styles.menuImg}
               source={require('../assets/icon/Menu.png')}
             />
           </TouchableOpacity>
         </View>
       </View>
-      <Modal
-        animationType="slide"
-        transparent={true}
-        visible={open}
-        onRequestClose={() => {
-          setOpen(!open);
-        }}>
-        <View style={{flex: 1, justifyContent: 'flex-end'}}>
-          <View
-            style={{
-              backgroundColor: '#ffffff',
-              height: 580,
-              borderTopEndRadius: 25,
-              borderTopStartRadius: 25,
-            }}>
-            <TouchableOpacity onPress={handleModal}>
-              <Image
-                style={{alignSelf: 'center'}}
-                source={require('../assets/icon/Modalclose.png')}
-              />
-              <View style={{paddingHorizontal: 20}}>
-                <TouchableOpacity style={{borderBottomWidth: 1}}>
-                  <Text style={{fontSize: 18, paddingVertical: 15}}>
-                    Setting and privacy
-                  </Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={{borderBottomWidth: 1}}>
-                  <Text style={{fontSize: 18, paddingVertical: 15}}>
-                    Your activity
-                  </Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={{borderBottomWidth: 1}}>
-                  <Text style={{fontSize: 18, paddingVertical: 15}}>
-                    Archive
-                  </Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={{borderBottomWidth: 1}}>
-                  <Text style={{fontSize: 18, paddingVertical: 15}}>Saved</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={{borderBottomWidth: 1}}>
-                  <Text style={{fontSize: 18, paddingVertical: 15}}>
-                    SuperVision
-                  </Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={{borderBottomWidth: 1}}>
-                  <Text style={{fontSize: 18, paddingVertical: 15}}>
-                    Meta Varified
-                  </Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={{borderBottomWidth: 1}}>
-                  <Text style={{fontSize: 18, paddingVertical: 15}}>
-                    Close Friends
-                  </Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={{borderBottomWidth: 1}}>
-                  <Text style={{fontSize: 18, paddingVertical: 15}}>
-                    Favourites
-                  </Text>
-                </TouchableOpacity>
-              </View>
-            </TouchableOpacity>
-          </View>
-        </View>
-      </Modal>
     </View>
   );
 };
 
 export default ProfileHeader;
+const styles = StyleSheet.create({
+  mainContainer: {
+    marginTop: vh(10),
+    paddingRight: vw(16),
+  },
+  subContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    // borderWidth:1,
+  },
+  accountIdContainer: {
+    width: SCREEN_WIDTH / 1.7,
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+    backgroundColor: 'white',
+    alignItems: 'center',
+    marginLeft:vw(8),
+  },
+  lockImg: {
+    width: vw(12),
+    height: vw(14),
+    resizeMode: 'contain',
+  },
+  id: {
+    fontSize: 20,
+    fontWeight: '600',
+    color: 'black',
+  },
+  bottomArrow: {
+    width: vw(12),
+    height: vw(10),
+    resizeMode:'contain',
+  },
+  iconContainer: {
+    width: vw(70),
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingBottom:1,
+  },
+  addPostImg: {
+    width: vw(24),
+    height: vw(24),
+    tintColor: 'black',
+    resizeMode: 'contain',
+  },
+  menuImg: {
+    width: vw(20),
+    height: vw(20),
+    resizeMode:'contain',
+    tintColor: 'black',
+  },
+});

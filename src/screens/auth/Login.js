@@ -1,140 +1,38 @@
-
-// import {
-//   Image,
-//   StyleSheet,
-//   SafeAreaView,
-//   Text,
-//   TouchableOpacity,
-//   View,
-// } from 'react-native';
-// import React from 'react';
-// import InputBox from '../../components/InputBox';
-// import CustomButton from '../../components/CustomButton';
-// import {Formik} from 'formik';
-// import {loginInitialValue, validationSchema} from './utils';
-// import {useNavigation} from '@react-navigation/native';
-
-// const Login = () => {
-//   const navigation = useNavigation();
-//   const handleLogin = values => {
-//     console.log(values);
-//     navigation.navigate('Dashboard');
-//   };
-
-//   return (
-//     <SafeAreaView style={styles.mainContainer}>
-//       <View style={styles.subContainer}>
-//         <Image
-//           source={require('../../assets/Instagram.png')}
-//           style={styles.logoImage}
-//         />
-//         <Formik
-//           initialValues={loginInitialValue}
-//           onSubmit={handleLogin}
-//           validationSchema={validationSchema}>
-//           {({
-//             handleChange,
-//             handleBlur,
-//             handleSubmit,
-//             values,
-//             touched,
-//             errors,
-//             isValid,
-//           }) => {
-//             return (
-//               <View>
-//                 <InputBox
-//                   placeholder={'Username, email address or mobile number'}
-//                   onChangeText={handleChange('username')}
-//                   onBlur={handleBlur('username')}
-//                   value={values.username}
-//                   touched={touched.username}
-//                   errors={errors.username}
-//                 />
-//                 <InputBox
-//                   placeholder={'Password'}
-//                   onChangeText={handleChange('password')}
-//                   onBlur={handleBlur('password')}
-//                   value={values.password}
-//                   touched={touched.password}
-//                   errors={errors.password}
-//                   secureTextEntry
-//                 />
-//                 <TouchableOpacity style={styles.forgotPass}>
-//                   <Text style={styles.forgotPassText}>Forgot Password?</Text>
-//                 </TouchableOpacity>
-//                 <CustomButton
-//                   buttonTitle={'Login'}
-//                   onPress={handleSubmit}
-//                   disabled={!isValid}
-//                 />
-//               </View>
-//             );
-//           }}
-//         </Formik>
-//         <View style={styles.facebookContainer}>
-//           <Image
-//             source={require('../../assets/facebook.png')}
-//             style={styles.facebookLogo}
-//           />
-//           <TouchableOpacity style={styles.facebook}>
-//             <Text style={styles.facebookText}>Log in with Facebook</Text>
-//           </TouchableOpacity>
-//         </View>
-//         <View style={styles.dividerContainer}>
-//           <View style={styles.line} />
-//           <View style={styles.orContainer}>
-//             <Text style={styles.orText}>OR</Text>
-//           </View>
-//           <View style={styles.line} />
-//         </View>
-//       </View>
-//       <View style={styles.signUpContainer}>
-//         <Text style={styles.newAccountText}>Don't have an account?</Text>
-//         <TouchableOpacity onPress={() => navigation.navigate('Signup')}>
-//           <Text style={styles.signupText}> Sign up</Text>
-//         </TouchableOpacity>
-//       </View>
-//     </SafeAreaView>
-//   );
-// };
-
-// export default Login;
-
-
-
-import {
-  Image,
-  StyleSheet,
-  SafeAreaView,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native';
-import React,{useState} from 'react';
+import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import React, {useState} from 'react';
 import InputBox from '../../components/InputBox';
 import CustomButton from '../../components/CustomButton';
 import {loginInitialValue, validateLogin} from './utils';
 import {useNavigation} from '@react-navigation/native';
+import {vh, vw} from '../../utils/dimension';
 
 const Login = () => {
   const navigation = useNavigation();
-
-  // State to manage input values and errors
   const [values, setValues] = useState({loginInitialValue});
   const [errors, setErrors] = useState({});
 
-  // Handle input changes
   const handleChange = (field, value) => {
     setValues({
       ...values,
       [field]: value,
     });
+    if (value.trim() === '') {
+      setErrors({
+        ...errors,
+        [field]: `${
+          field === 'username' ? 'Username' : 'Password'
+        } is required`,
+      });
+    } else {
+      setErrors({
+        ...errors,
+        [field]: undefined, // Clear the error for this field
+      });
+    }
   };
 
-  // Validate the form and handle submission
   const handleLogin = () => {
-    const validationErrors = validateLogin(values); // Validate using your custom function from utils
+    const validationErrors = validateLogin(values);
     setErrors(validationErrors);
 
     if (Object.keys(validationErrors).length === 0) {
@@ -146,51 +44,46 @@ const Login = () => {
   };
 
   return (
-    <SafeAreaView style={styles.mainContainer}>
+    <View style={styles.mainContainer}>
       <View style={styles.subContainer}>
         <Image
-          source={require('../../assets/Instagram.png')}
+          source={require('../../assets/icon/Instagram.png')}
           style={styles.logoImage}
         />
         <View>
-          {/* Username Input */}
           <InputBox
             placeholder={'Username, email address or mobile number'}
-            onChangeText={(text) => handleChange('username', text)}
+            onChangeText={text => handleChange('username', text)}
             value={values.username}
+            style={styles.inputView}
             touched={!!errors.username}
             errors={errors.username}
           />
-          {errors.username && <Text style={{ color: 'red' }}>{errors.username}</Text>}
 
-          {/* Password Input */}
           <InputBox
             placeholder={'Password'}
-            onChangeText={(text) => handleChange('password', text)}
+            onChangeText={text => handleChange('password', text)}
             value={values.password}
+            style={styles.inputView}
             touched={!!errors.password}
             errors={errors.password}
             secureTextEntry
           />
-          {errors.password && <Text style={{ color: 'red' }}>{errors.password}</Text>}
 
-          {/* Forgot Password Link */}
           <TouchableOpacity style={styles.forgotPass}>
             <Text style={styles.forgotPassText}>Forgot Password?</Text>
           </TouchableOpacity>
 
-          {/* Login Button */}
           <CustomButton
             buttonTitle={'Login'}
             onPress={handleLogin}
-            disabled={!values.username || !values.password} // Disable if either field is empty
+            disabled={!values.username || !values.password}
           />
         </View>
 
-        {/* Facebook Login */}
         <View style={styles.facebookContainer}>
           <Image
-            source={require('../../assets/facebook.png')}
+            source={require('../../assets/icon/facebook.png')}
             style={styles.facebookLogo}
           />
           <TouchableOpacity style={styles.facebook}>
@@ -198,7 +91,6 @@ const Login = () => {
           </TouchableOpacity>
         </View>
 
-        {/* Divider */}
         <View style={styles.dividerContainer}>
           <View style={styles.line} />
           <View style={styles.orContainer}>
@@ -206,16 +98,14 @@ const Login = () => {
           </View>
           <View style={styles.line} />
         </View>
-      </View>
-
-      {/* Sign Up Link */}
-      <View style={styles.signUpContainer}>
+        <View style={styles.signUpContainer}>
         <Text style={styles.newAccountText}>Don't have an account?</Text>
         <TouchableOpacity onPress={() => navigation.navigate('Signup')}>
           <Text style={styles.signupText}> Sign up</Text>
         </TouchableOpacity>
       </View>
-    </SafeAreaView>
+      </View>
+    </View>
   );
 };
 
@@ -227,7 +117,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   logoImage: {
-    marginBottom: 40,
+    marginBottom: vh(40),
+    resizeMode:'contain',
     alignSelf: 'center',
   },
   subContainer: {
@@ -235,7 +126,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   forgotPass: {
-    marginTop: 14,
+    marginTop: vh(14),
     alignSelf: 'flex-end',
   },
   forgotPassText: {
@@ -245,12 +136,12 @@ const styles = StyleSheet.create({
   facebookContainer: {
     flexDirection: 'row',
     alignSelf: 'center',
-    marginTop: 40,
+    marginTop: vh(40),
   },
   facebookLogo: {
-    width: 17,
-    height: 17,
-    marginRight: 10,
+    width: vw(17),
+    height: vh(17),
+    marginRight: vw(10),
   },
   facebookText: {
     fontSize: 14,
@@ -258,29 +149,28 @@ const styles = StyleSheet.create({
     color: '#3797EF',
   },
   line: {
-    width: 140,
+    width: vw(140),
     height: 1,
     borderWidth: 1,
-    marginTop: 10,
+    marginTop: vh(10),
     opacity: 0.1,
   },
   orContainer: {
-    marginHorizontal: 20,
+    marginHorizontal: vw(20),
   },
   orText: {
     fontSize: 20,
     color: 'grey',
   },
-
   dividerContainer: {
     flexDirection: 'row',
     justifyContent: 'center',
-    marginTop: 40,
+    marginTop: vh(40),
   },
   signUpContainer: {
-    flexDirection:'row',
-    justifyContent:'flex-end',
-    alignSelf:'center',
+    flexDirection: 'row',
+    alignSelf: 'center',
+    marginTop: vh(50),
   },
   newAccountText: {
     fontSize: 16,
@@ -288,5 +178,19 @@ const styles = StyleSheet.create({
   signupText: {
     fontSize: 16,
     color: '#3797EF',
+  },
+  error: {
+    color: 'red',
+  },
+  inputView: {
+    borderWidth: 1,
+    width: vw(343),
+    height: vh(44),
+    justifyContent:'center',
+    borderColor: '#ccc',
+    borderRadius: vw(5),
+    marginTop:vh(16),
+    paddingHorizontal: vw(10),
+    fontSize: 16,
   },
 });

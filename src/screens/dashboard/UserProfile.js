@@ -1,17 +1,24 @@
-import { View, Text } from 'react-native'
-import React from 'react'
-import ProfileHeader from '../../components/ProfileHeader'
-import ProfileDetails from '../../components/ProfileDetails'
-import ProfilePost from '../../components/ProfilePost'
+import React from 'react';
+import ProfileHeader from '../../components/ProfileHeader';
+import ProfileDetails from '../../components/ProfileDetails';
+import ProfilePost from '../../components/ProfilePost';
+import {SafeAreaView} from 'react-native-safe-area-context';
+import {StyleSheet} from 'react-native';
 
 const UserProfile = () => {
   return (
-    <View style={{flex:  1, backgroundColor: 'white'}}>
+    <SafeAreaView style={styles.mainContainer}>
       <ProfileHeader />
       <ProfileDetails />
       <ProfilePost />
-    </View>
-  )
-}
+    </SafeAreaView>
+  );
+};
 
-export default UserProfile
+export default UserProfile;
+const styles = StyleSheet.create({
+  mainContainer: {
+    flex: 1,
+    backgroundColor: 'white',
+  },
+});

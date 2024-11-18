@@ -1,7 +1,8 @@
 
 import React, {useState, useEffect} from 'react';
-import {StyleSheet, Image, View, Text} from 'react-native';
+import {StyleSheet, Image, View} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
+import { vw,vh } from '../../utils/dimension';
 
   const SplashScreen = () => {
   const navigation = useNavigation();
@@ -11,14 +12,14 @@ import {useNavigation} from '@react-navigation/native';
     const timer = setTimeout(() => {
       setIsVisible(false);
       navigation.navigate('Login');
-    }, 2000);
+    }, 1000);
 
     return () => clearTimeout(timer);
   }, [navigation]);
 
   return (
     <View style={styles.container}>
-      <Image source={require('../../assets/Instagram.png')} style={styles.logo} />
+      <Image source={require('../../assets/icon/Instagram.png')} style={styles.logo} />
     </View>
   );
 };
@@ -31,8 +32,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#ffffff',
   },
   logo: {
-    width: 250,
-    height: 250,
+    width: vw(250),
+    height: vh(250),
     resizeMode: 'contain',
   },
 });

@@ -9,11 +9,11 @@ export const UserData = [
       image: require('../assets/data/elonstory.png'),
     },
     post: {
-      time: '09:00:00',
+      time: '9h',
       date: '01/05/2023',
       image: require('../assets/data/elonpost.png'),
       caption: 'Hi Everyone, Elon musk is here',
-      like: 30,
+      like: 3333,
     },
   },
   {
@@ -26,7 +26,7 @@ export const UserData = [
       image: require('../assets/data/harshs.png'),
     },
     post: {
-      time: '04:00 PM',
+      time: '4d',
       date: '08/04/2023',
       image: require('../assets/data/harshp.png'),
       caption: 'hi....',
@@ -43,7 +43,7 @@ export const UserData = [
       image: require('../assets/data/modip.png'),
     },
     post: {
-      time: '07:00 AM',
+      time: '7h',
       date: '12/05/2023',
       image: require('../assets/data/modis.png'),
       caption: 'A memorable time',
@@ -60,7 +60,7 @@ export const UserData = [
       image: require('../assets/data/sonams.png'),
     },
     post: {
-      time: '07:00 AM',
+      time: '11d',
       date: '12/05/2023',
       image: require('../assets/data/sonmp.png'),
       caption: 'No edit, No touch ups...',

@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import React, {useEffect} from 'react';
 import {useNavigation} from '@react-navigation/native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const StoryView = ({route}) => {
   console.log(route.params);
@@ -23,11 +24,11 @@ const StoryView = ({route}) => {
   useEffect(() => {
     const timeout = setTimeout(() => {
       navigation.goBack();
-    }, 2000);
+    }, 3000);
   }, [navigation]);
 
   return (
-    <View style={{flex: 1, backgroundColor: 'black'}}>
+    <SafeAreaView style={{flex: 1, backgroundColor: 'black'}}>
       <View
         style={{
           flexDirection: 'row',
@@ -82,12 +83,12 @@ const StoryView = ({route}) => {
           <TouchableOpacity>
             <Image
               style={{tintColor: 'white', marginRight: 10}}
-              source={require('../assets/Messanger.png')}
+              source={require('../assets/icon/share.png')}
             />
           </TouchableOpacity>
         </View>
       </View>
-    </View>
+    </SafeAreaView>
   );
 };
 

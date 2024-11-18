@@ -1,41 +1,45 @@
-import {View, Text, TouchableOpacity, Image, FlatList} from 'react-native';
+import {
+  View,
+  TouchableOpacity,
+  Image,
+  FlatList,
+  StyleSheet,
+} from 'react-native';
 import React, {useState} from 'react';
 import {UserData, typeData} from '../utils/UserData';
+import { vw,vh } from '../utils/dimension';
 
 const ProfilePost = () => {
   const [selected, setSelected] = useState(1);
 
-  const renderItem = item =>{
-    return(
-      <View>
-        <Image style={{height: 130.9, width: 130.9}} source={item.item.post.image} />
+  const renderItem = item => {
+    return (
+      <View style={styles.postContainer}>
+        <Image style={styles.postImg} source={item.item.post.image} />
       </View>
-    )
-  }
+    );
+  };
 
   return (
-    <View style={{marginTop: 20}}>
-      <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+    <View style={styles.mainContainer}>
+      <View style={styles.header}>
         {typeData.map(item => {
           return (
             <View
               key={item.id}
               style={{
-                width: 196.36,
-                paddingBottom: 15,
+                width: vw(196.36),
+                paddingBottom: vh(15),
                 borderBottomWidth: selected === item.id ? 1 : 0,
               }}>
               <TouchableOpacity onPress={() => setSelected(item.id)}>
-                <Image
-                  style={{tintColor: 'black', alignSelf: 'center'}}
-                  source={item.image}
-                />
+                <Image style={styles.icon} source={item.image} />
               </TouchableOpacity>
             </View>
           );
         })}
       </View>
-      {selected == 1 && (
+      {selected === 1 && (
         <FlatList
           data={UserData}
           renderItem={renderItem}
@@ -49,3 +53,25 @@ const ProfilePost = () => {
 };
 
 export default ProfilePost;
+
+const styles = StyleSheet.create({
+  mainContainer: {
+    marginTop: vh(20),
+  },
+  header: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  icon: {
+    tintColor: 'black',
+    alignSelf: 'center',
+  },
+  postContainer: {
+    marginTop: vh(3),
+  },
+  postImg: {
+    height: vw(130),
+    width: vw(130),
+    marginRight: vw(3),
+  },
+});
