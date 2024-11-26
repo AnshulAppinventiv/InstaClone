@@ -4,12 +4,10 @@ import StackNavigation from './src/navigator/StackNavigation';
 
 const App = () => {
   return (
-    <View style={{flex:1}}>
+    <View style={{flex: 1}}>
       <StackNavigation />
     </View>
   );
 };
 
 export default App;
-
-

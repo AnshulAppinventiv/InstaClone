@@ -9,7 +9,8 @@ import {
 } from 'react-native';
 import React, {useEffect} from 'react';
 import {useNavigation} from '@react-navigation/native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import {SafeAreaView} from 'react-native-safe-area-context';
+import {vw, vh} from '../utils/dimension';
 
 const StoryView = ({route}) => {
   console.log(route.params);
@@ -24,24 +25,13 @@ const StoryView = ({route}) => {
   useEffect(() => {
     const timeout = setTimeout(() => {
       navigation.goBack();
-    }, 3000);
+    }, 1000);
   }, [navigation]);
 
   return (
-    <SafeAreaView style={{flex: 1, backgroundColor: 'black'}}>
-      <View
-        style={{
-          flexDirection: 'row',
-          paddingTop: 12,
-          paddingLeft: 12,
-          alignItems: 'center',
-          position: 'relative',
-          zIndex: 1,
-        }}>
-        <Image
-          style={{height: 40, width: 40, borderRadius: 20, marginRight: 10}}
-          source={selectedItem.profile}
-        />
+    <SafeAreaView style={styles.mainContainer}>
+      <View style={styles.header}>
+        <Image style={styles.profileImg} source={selectedItem.profile} />
         <Text style={{fontSize: 18, fontWeight: 700, color: 'white'}}>
           {selectedItem.name}
         </Text>
@@ -95,5 +85,22 @@ const StoryView = ({route}) => {
 export default StoryView;
 
 const styles = StyleSheet.create({
-
+  mainContainer: {
+    flex: 1,
+    backgroundColor: 'black',
+  },
+  header: {
+    flexDirection: 'row',
+    paddingTop: vh(12),
+    paddingLeft: vw(12),
+    alignItems: 'center',
+    position: 'relative',
+    zIndex: 1,
+  },
+  profileImg: {
+    height: 40,
+    width: 40,
+    borderRadius: 20,
+    marginRight: 10,
+  },
 });

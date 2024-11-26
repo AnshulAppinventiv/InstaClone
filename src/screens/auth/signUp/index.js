@@ -1,16 +1,10 @@
 import React, {useState} from 'react';
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  SafeAreaView,
-  StyleSheet,
-} from 'react-native';
-import InputBox from '../../components/InputBox';
-import CustomButton from '../../components/CustomButton';
+import {View, Text, TouchableOpacity, SafeAreaView} from 'react-native';
+import InputBox from '../../../components/InputBox';
+import CustomButton from '../../../components/CustomButton';
 import {useNavigation} from '@react-navigation/native';
-import {validateSignup, signupInitialValue} from './utils';
-import {vw, vh} from '../../utils/dimension';
+import {validateSignup, signupInitialValue} from '../utils';
+import {styles} from './styles';
 
 const Signup = () => {
   const navigation = useNavigation();
@@ -62,35 +56,3 @@ const Signup = () => {
 };
 
 export default Signup;
-
-const styles = StyleSheet.create({
-  mainContainer: {
-    flex: 1,
-    alignItems: 'center',
-    backgroundColor: 'white',
-  },
-  subContainer: {
-    flex: 0.4,
-    marginTop: vh(20),
-  },
-  text: {
-    fontSize: 25,
-    fontWeight: '700',
-    textAlign: 'center',
-    marginBottom: vh(20),
-  },
-  signUpWithEmailButton: {
-    marginTop: vh(15),
-  },
-  signUpWithEmailText: {
-    fontSize: 16,
-    textAlign: 'center',
-  },
-  loginButton: {
-    marginBottom: vh(20),
-  },
-  loginText: {
-    fontSize: 16,
-    textAlign: 'center',
-  },
-});

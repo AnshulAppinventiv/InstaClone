@@ -36,8 +36,8 @@ export default InputBox;
 
 const styles = StyleSheet.create({
   mainContainer: {
-    height: vw(50),
-    marginTop:vh(14),
+    // height: vw(50),
+    // marginTop:vh(6),
   },
 
   errorMsg: {

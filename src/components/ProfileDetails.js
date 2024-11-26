@@ -51,12 +51,11 @@ const ProfileDetails = () => {
 const styles = StyleSheet.create({
   mainContainer: {
     paddingHorizontal: vw(15),
-    marginTop:20,
+    marginTop:vh(20),
   },
   subContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'center',
   },
   profileImg: {
     width: vw(80),
@@ -68,6 +67,7 @@ const styles = StyleSheet.create({
   detailsContainer: {
     width: vw(75),
     alignItems: 'center',
+    paddingTop:10,
   },
   detailsCount: {
     fontSize: 20,
@@ -91,14 +91,14 @@ const styles = StyleSheet.create({
   editProfileButton: {
     backgroundColor: '#E6E6E6',
     width: vw(150),
-    height: vh(32),
+    height: vw(32),
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 6,
   },
   shareProfileButton: {
     width: vw(150),
-    height: vh(32),
+    height: vw(32),
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: '#E6E6E6',
@@ -107,7 +107,7 @@ const styles = StyleSheet.create({
   },
   addContactsButton:{
     width: vw(30),
-    height: vh(30),
+    height: vw(30),
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#E6E6E6',
@@ -116,7 +116,7 @@ const styles = StyleSheet.create({
   },
   addContactsImage:{
     width: vw(20),
-    height: vh(20),
+    height: vw(20),
   },
 });
 export default ProfileDetails;

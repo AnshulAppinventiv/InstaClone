@@ -7,16 +7,21 @@ import {
 } from 'react-native';
 import React, {useState} from 'react';
 import {UserData, typeData} from '../utils/UserData';
-import { vw,vh } from '../utils/dimension';
+import {vw, vh} from '../utils/dimension';
+import {useNavigation} from '@react-navigation/native';
 
 const ProfilePost = () => {
+  const navigation = useNavigation();
   const [selected, setSelected] = useState(1);
 
   const renderItem = item => {
     return (
-      <View style={styles.postContainer}>
+      <TouchableOpacity
+        onPress={() => navigation.navigate('ProfilePosts')}
+        activeOpacity={0.8}
+        style={styles.postContainer}>
         <Image style={styles.postImg} source={item.item.post.image} />
-      </View>
+      </TouchableOpacity>
     );
   };
 
@@ -63,15 +68,18 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   icon: {
+    width: vw(24),
+    height: vw(24),
     tintColor: 'black',
     alignSelf: 'center',
   },
   postContainer: {
     marginTop: vh(3),
+    backgroundColor: 'red',
+    marginRight: vw(3),
   },
   postImg: {
-    height: vw(130),
-    width: vw(130),
-    marginRight: vw(3),
+    height: vw(124),
+    width: vw(124),
   },
 });

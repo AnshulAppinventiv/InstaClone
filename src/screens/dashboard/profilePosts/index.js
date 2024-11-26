@@ -1,10 +1,21 @@
 /* eslint-disable react-native/no-inline-styles */
-import {View, Text, Image, TouchableOpacity, StyleSheet} from 'react-native';
-import {UserData} from '../utils/UserData';
-import {vw, vh, SCREEN_WIDTH} from '../utils/dimension';
+import {
+  View,
+  Text,
+  Image,
+  TouchableOpacity,
+  ScrollView,
+  SafeAreaView,
+} from 'react-native';
+import {UserData} from '../../../utils/UserData';
 import React, {useState} from 'react';
+import { vw } from '../../../utils/dimension';
+import { useNavigation } from '@react-navigation/native';
+import { styles } from './styles';
 
-const Post = () => {
+
+const ProfilePosts = () => {
+    const navigation = useNavigation();
   const [posts, setPosts] = useState(
     UserData.map(item => ({
       id: item.id,
@@ -41,7 +52,22 @@ const Post = () => {
   };
 
   return (
-    <View style={styles.mainContainer}>
+    <SafeAreaView>
+    <ScrollView style={styles.mainContainer}>
+          <View style={styles.header}>
+        <TouchableOpacity
+          onPress={() => {
+            navigation.goBack();
+          }}>
+          <Image
+            source={require('../../../assets/icon/back.png')}
+            style={styles.backImg}
+          />
+        </TouchableOpacity>
+        <View style={styles.idContainer}>
+          <Text style={styles.id}>Posts</Text>
+        </View>
+      </View>
       {UserData.map(item => {
         const currentPost = posts.find(post => post.id === item.id);
 
@@ -54,7 +80,7 @@ const Post = () => {
               </View>
               <TouchableOpacity>
                 <Image
-                  source={require('../assets/icon/more.png')}
+                  source={require('../../../assets/icon/more.png')}
                   style={styles.moreImg}
                 />
               </TouchableOpacity>
@@ -76,8 +102,8 @@ const Post = () => {
                     style={styles.likeImg}
                     source={
                       currentPost.liked
-                        ? require('../assets/icon/Liked.png')
-                        : require('../assets/icon/Like.png')
+                        ? require('../../../assets/icon/Liked.png')
+                        : require('../../../assets/icon/Like.png')
                     }
                   />
                 </TouchableOpacity>
@@ -86,14 +112,14 @@ const Post = () => {
                 <TouchableOpacity>
                   <Image
                     style={styles.commentImg}
-                    source={require('../assets/icon/Comment.png')}
+                    source={require('../../../assets/icon/Comment.png')}
                   />
                 </TouchableOpacity>
 
                 <TouchableOpacity>
                   <Image
                     style={styles.shareImg}
-                    source={require('../assets/icon/share.png')}
+                    source={require('../../../assets/icon/share.png')}
                   />
                 </TouchableOpacity>
               </View>
@@ -102,8 +128,8 @@ const Post = () => {
                 <Image
                   source={
                     currentPost.isSaved
-                      ? require('../assets/icon/saved.png')
-                      : require('../assets/icon/save.png')
+                      ? require('../../../assets/icon/saved.png')
+                      : require('../../../assets/icon/save.png')
                   }
                   style={styles.saveImg}
                 />
@@ -117,96 +143,11 @@ const Post = () => {
           </View>
         );
       })}
-    </View>
+    </ScrollView>
+    </SafeAreaView>
   );
 };
 
-const styles = StyleSheet.create({
-  mainContainer: {
-    marginTop: vh(10),
-  },
-  itemContainer: {
-    marginBottom: vh(16),
-  },
-  postHeader: {
-    paddingVertical:vh(2),
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    paddingHorizontal: vw(10),
-    marginBottom: vh(8),
-  },
-  profileContainer: {
-    flexDirection: 'row',
-    padding: 4,
-  },
-  profileImg: {
-    width: vw(30),
-    height: vw(30),
-    borderRadius: 50,
-    resizeMode: 'cover',
-  },
-  name: {
-    marginLeft: vw(10),
-    fontSize: 16,
-    fontWeight: '600',
-    color: 'black',
-  },
-  moreImg: {
-    width: vw(18),
-    height: vw(18),
-  },
-  postImg: {
-    height: vh(460),
-    width: SCREEN_WIDTH,
-    resizeMode: 'cover',
-  },
-  iconContainer: {
-    paddingHorizontal: vw(10),
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    marginTop: vh(10),
-  },
-  likeImg: {
-    width: vw(24),
-    height: vw(24),
-    resizeMode: 'contain',
-  },
-  likes: {
-    marginLeft: vw(4),
-    fontSize: 16,
-    fontWeight: '600',
-    color: 'black',
-  },
-  commentImg: {
-    width: vw(24),
-    height: vw(24),
-    resizeMode: 'contain',
-    marginLeft: vw(15),
-  },
-  shareImg: {
-    width: vw(24),
-    height: vw(24),
-    marginLeft: vw(15),
-    resizeMode: 'contain',
-  },
-  captionContainer: {
-    marginTop: vh(10),
-    flexDirection: 'row',
-    paddingHorizontal: vw(12),
-    alignItems: 'center',
-  },
-  nameInCaption: {
-    color: 'black',
-    fontSize: 16,
-    fontWeight: '500',
-  },
-  saveImg: {
-    width: vw(24),
-    height: vw(24),
-    resizeMode: 'contain',
-  },
-});
 
-export default Post;
+
+export default ProfilePosts;

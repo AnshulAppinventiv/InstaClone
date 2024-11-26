@@ -1,6 +1,6 @@
 import {View, Text, Image, TouchableOpacity, StyleSheet} from 'react-native';
 import React from 'react';
-import {vh, vw, SCREEN_WIDTH, SCREEN_HEIGHT} from '../utils/dimension';
+import {vh, vw} from '../utils/dimension';
 import {useNavigation} from '@react-navigation/native';
 
 const Header = () => {
@@ -32,37 +32,36 @@ export default Header;
 
 const styles = StyleSheet.create({
   mainContainer: {
-    width: SCREEN_WIDTH,
-    height: SCREEN_HEIGHT / 12.0,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
     paddingHorizontal: vw(15),
+    paddingVertical:vh(6),
+    marginTop:vh(8),
   },
   instaImg: {
-    width: vw(124),
-    height: vh(40),
+    width: vw(120),
+    height: vw(40),
     resizeMode: 'contain',
   },
   iconContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginBottom: vh(6),
   },
   likeImg: {
     width: vw(24),
-    height: vh(24),
+    height: vw(24),
     resizeMode: 'contain',
     marginRight: vw(15),
   },
   msgContainer: {
     width: vw(24),
-    height: vh(24),
+    height: vw(24),
     position: 'relative',
   },
   numberOfMsgView: {
     position: 'absolute',
-    bottom: vh(18),
+    bottom: vw(18),
     left: vw(15),
   },
   numberOfMsgText: {

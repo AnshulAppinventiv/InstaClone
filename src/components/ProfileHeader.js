@@ -81,7 +81,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    paddingBottom:1,
   },
   addPostImg: {
     width: vw(24),
@@ -90,8 +89,8 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
   },
   menuImg: {
-    width: vw(20),
-    height: vw(20),
+    width: vw(22),
+    height: vw(22),
     resizeMode:'contain',
     tintColor: 'black',
   },

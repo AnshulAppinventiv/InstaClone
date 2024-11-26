@@ -1,15 +1,15 @@
 import {Image, StyleSheet} from 'react-native';
 import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import Dashboard from '../screens/dashboard/Dashboard';
-import Search from '../screens/dashboard/Search';
-import AddPost from '../screens/dashboard/AddPost';
-import Reel from '../screens/dashboard/Reel';
-import UserProfile from '../screens/dashboard/UserProfile';
-import { vw,vh } from '../utils/dimension';
+import Dashboard from '../screens/dashboard/home';
+import Search from '../screens/dashboard/search';
+import AddPost from '../screens/dashboard/addPost';
+import Reel from '../screens/dashboard/reel';
+import UserProfile from '../screens/dashboard/userProfile';
+import {vw} from '../utils/dimension';
 
 const Tab = createBottomTabNavigator();
-const HomeTabIcon = ({ focused }) => (
+const HomeTabIcon = ({focused}) => (
   <Image
     style={styles.icon}
     source={
@@ -19,7 +19,7 @@ const HomeTabIcon = ({ focused }) => (
     }
   />
 );
-const SearchTabIcon = ({ focused }) => (
+const SearchTabIcon = ({focused}) => (
   <Image
     style={styles.icon}
     source={
@@ -31,29 +31,20 @@ const SearchTabIcon = ({ focused }) => (
 );
 
 const AddPostTabIcon = () => (
-  <Image
-    style={styles.icon}
-    source={require('../assets/footer/addPost.png')}
-  />
+  <Image style={styles.icon} source={require('../assets/footer/addPost.png')} />
 );
 
 const ReelsTabIcon = () => (
-  <Image
-    style={styles.icon}
-    source={require('../assets/footer/reel.png')}
-  />
+  <Image style={styles.icon} source={require('../assets/footer/reel.png')} />
 );
 
 const UserProfileTabIcon = () => (
-  <Image
-    style={styles.icon}
-    source={require('../assets/footer/user.png')}
-  />
+  <Image style={styles.icon} source={require('../assets/footer/user.png')} />
 );
 
 const BottomNavigation = () => {
   return (
-    <Tab.Navigator screenOptions={{ headerShown: false, tabBarShowLabel: false }}>
+    <Tab.Navigator screenOptions={{headerShown: false, tabBarShowLabel: false}}>
       <Tab.Screen
         name="Home"
         component={Dashboard}
@@ -96,10 +87,9 @@ const BottomNavigation = () => {
 export default BottomNavigation;
 
 const styles = StyleSheet.create({
-  icon:{
+  icon: {
     width: vw(24),
     height: vw(24),
-    resizeMode:'contain',
+    resizeMode: 'contain',
   },
 });
-

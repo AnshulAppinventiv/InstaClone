@@ -9,7 +9,9 @@ import {
 import React from 'react';
 import {UserData} from '../utils/UserData';
 import {useNavigation} from '@react-navigation/native';
-import {SCREEN_WIDTH, SCREEN_HEIGHT, vh, vw} from '../utils/dimension';
+import {SCREEN_WIDTH, vh, vw} from '../utils/dimension';
+import MaskedView from '@react-native-masked-view/masked-view';
+import LinearGradient from 'react-native-linear-gradient';
 
 const Stories = () => {
   const navigation = useNavigation();
@@ -18,7 +20,18 @@ const Stories = () => {
     return (
       <View style={styles.storyContainer}>
         <TouchableOpacity onPress={() => navigation.navigate('Story', {item})}>
-          <View style={styles.storyView}>
+          <MaskedView
+            style={styles.maskedView}
+            maskElement={<View style={styles.storyView} />}>
+            <LinearGradient
+              colors={['#ff6a00', '#ee0979', 'yellow']}
+              start={{x: 0, y: 0}}
+              end={{x: 1, y: 1}}
+              style={styles.gradient}
+            />
+          </MaskedView>
+
+          <View style={styles.innerCircle}>
             <Image style={styles.storyImage} source={item.story.image} />
           </View>
         </TouchableOpacity>
@@ -47,33 +60,46 @@ const styles = StyleSheet.create({
   mainContainer: {
     flexDirection: 'row',
     paddingVertical: vh(4),
-    // borderWidth:1,
-    marginLeft:vw(5),
+    marginLeft: vw(5),
   },
   storyContainer: {
     paddingVertical: vh(3),
     paddingHorizontal: vw(6),
-    // borderWidth:1,
   },
-  storyView: {
+  maskedView: {
     width: SCREEN_WIDTH / 4.5,
     height: SCREEN_WIDTH / 4.5,
+  },
+  storyView: {
+    flex: 1,
+    borderRadius: SCREEN_WIDTH / 9,
     borderWidth: 3,
-    borderRadius: 45,
-    alignItems: 'center',
-    padding: 3,
+  },
+  gradient: {
+    flex: 1,
+    borderRadius: SCREEN_WIDTH / 9,
+  },
+  innerCircle: {
+    position: 'absolute',
+    top: 4,
+    left: 4,
+    width: SCREEN_WIDTH / 5,
+    height: SCREEN_WIDTH / 5,
+    borderRadius: SCREEN_WIDTH / 10,
+    backgroundColor: 'white',
     justifyContent: 'center',
-    borderColor: '#FF20B1',
+    alignItems: 'center',
+    padding: 2,
   },
   storyImage: {
     width: '100%',
     height: '100%',
-    borderRadius: 45,
+    borderRadius: 40,
     resizeMode: 'cover',
   },
   userName: {
     textAlign: 'center',
     color: 'black',
-    marginTop: 0,
+    marginTop: 5,
   },
 });

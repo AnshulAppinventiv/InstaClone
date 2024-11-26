@@ -1,10 +1,10 @@
-
+/* eslint-disable no-unused-vars */
 import React, {useState, useEffect} from 'react';
-import {StyleSheet, Image, View} from 'react-native';
+import {Image, View} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
-import { vw,vh } from '../../utils/dimension';
+import {styles} from './styles';
 
-  const SplashScreen = () => {
+const SplashScreen = () => {
   const navigation = useNavigation();
   const [isVisible, setIsVisible] = useState(true);
 
@@ -19,21 +19,11 @@ import { vw,vh } from '../../utils/dimension';
 
   return (
     <View style={styles.container}>
-      <Image source={require('../../assets/icon/Instagram.png')} style={styles.logo} />
+      <Image
+        source={require('../../../assets/icon/Instagram.png')}
+        style={styles.logo}
+      />
     </View>
   );
 };
 export default SplashScreen;
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#ffffff',
-  },
-  logo: {
-    width: vw(250),
-    height: vh(250),
-    resizeMode: 'contain',
-  },
-});

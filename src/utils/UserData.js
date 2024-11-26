@@ -19,7 +19,7 @@ export const UserData = [
   {
     id: 2,
     name: 'Harsh Beniwal',
-    username: 'harsh',
+    username: 'harshbeniwal',
     profile: require('../assets/data/harshdp.png'),
     story: {
       time: 8,
@@ -36,7 +36,7 @@ export const UserData = [
   {
     id: 3,
     name: 'Narendra Modi',
-    username: 'modi',
+    username: 'narendramodi',
     profile: require('../assets/data/modidp.png'),
     story: {
       time: 15,
@@ -52,8 +52,8 @@ export const UserData = [
   },
   {
     id: 4,
-    name: 'Sonam',
-    username: 'sonamb12',
+    name: 'Sonam Bajwa',
+    username: 'sonambajwa',
     profile: require('../assets/data/sonamdp.png'),
     story: {
       time: 13,
