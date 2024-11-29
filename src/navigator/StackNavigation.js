@@ -10,6 +10,8 @@ import SplashScreen from '../screens/auth/splash';
 import ChatScreen from '../screens/dashboard/chats';
 import ProfilePosts from '../screens/dashboard/profilePosts';
 import AddPost from '../screens/dashboard/addPost';
+import EditProfile from '../screens/dashboard/editProfile';
+import Reels from '../screens/dashboard/reels';
 
 
 const Stack = createNativeStackNavigator();
@@ -24,9 +26,13 @@ const StackNavigation = () => {
         <Stack.Screen name="Signup" component={Signup} />
         <Stack.Screen name="Home" component={Dashboard} />
         <Stack.Screen name="ChatScreen" component={ChatScreen} />
-        <Stack.Screen name="Story" component={StoryView} />
+        <Stack.Screen name="StoryView" component={StoryView} />
         <Stack.Screen name="Dashboard" component={BottomNavigation} />
-        <Stack.Screen name="ProfilePosts" component={ProfilePosts} options={{animation:'slide_from_bottom'}} />
+        <Stack.Screen name="ProfilePosts" component={ProfilePosts} />
+        <Stack.Screen name="Addpost" component={AddPost} options={{animation:'slide_from_bottom'}} />
+        <Stack.Screen name="EditProfile" component={EditProfile} />
+        <Stack.Screen name="Reels" component={Reels} />
+
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -47,11 +47,11 @@ export const styles = StyleSheet.create({
     marginTop: vh(26),
     borderColor: '#F4F4F4',
     backgroundColor: '#F4F4F4',
-    borderRadius: vw(20),
-    paddingHorizontal: vw(10),
-    fontSize: 19,
+    borderRadius: vh(18),
+    paddingHorizontal: vw(14),
+    fontSize: vw(18),
     alignSelf: 'center',
-    justifyContent: 'center',
+    textAlignVertical:'center',
   },
   subContainer: {
     flexDirection: 'row',
@@ -61,11 +61,11 @@ export const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   msgText: {
-    fontSize: 18,
+    fontSize: vw(18),
     fontWeight: '500',
   },
   RequestText: {
-    fontSize: 18,
+    fontSize: vw(18),
     fontWeight: '600',
     color: '#3797EF',
   },
@@ -85,7 +85,7 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   userName: {
-    fontSize: 16,
+    fontSize: vw(16),
     fontWeight: '400',
     color: '#000',
   },
@@ -99,7 +99,7 @@ export const styles = StyleSheet.create({
     height: vw(30),
     resizeMode: 'contain',
   },
-  listContainer:{
-    marginTop:vh(10),
-  }
+  listContainer: {
+    marginTop: vh(10),
+  },
 });

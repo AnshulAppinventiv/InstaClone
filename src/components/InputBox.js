@@ -1,6 +1,6 @@
 import {StyleSheet, Text, TextInput, View} from 'react-native';
 import React from 'react';
-import { vw,vh } from '../utils/dimension';
+import {vw} from '../utils/dimension';
 
 const InputBox = ({
   placeholder,
@@ -26,6 +26,7 @@ const InputBox = ({
         touched={touched}
         keyboardType={keyboardType}
         maxLength={maxLength}
+        placeholderTextColor={'grey'}
       />
       {errors && touched && <Text style={styles.errorMsg}>{errors}</Text>}
     </View>

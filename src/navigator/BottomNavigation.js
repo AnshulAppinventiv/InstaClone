@@ -4,7 +4,7 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Dashboard from '../screens/dashboard/home';
 import Search from '../screens/dashboard/search';
 import AddPost from '../screens/dashboard/addPost';
-import Reel from '../screens/dashboard/reel';
+import Reels from '../screens/dashboard/reels';
 import UserProfile from '../screens/dashboard/userProfile';
 import {vw} from '../utils/dimension';
 
@@ -68,7 +68,7 @@ const BottomNavigation = () => {
       />
       <Tab.Screen
         name="Reels"
-        component={Reel}
+        component={Reels}
         options={{
           tabBarIcon: ReelsTabIcon,
         }}

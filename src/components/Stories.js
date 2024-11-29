@@ -13,13 +13,13 @@ import {SCREEN_WIDTH, vh, vw} from '../utils/dimension';
 import MaskedView from '@react-native-masked-view/masked-view';
 import LinearGradient from 'react-native-linear-gradient';
 
-const Stories = () => {
-  const navigation = useNavigation();
+const Stories = ({navigation}) => {
+  // const navigation = useNavigation();
 
   const renderItem = ({item}) => {
     return (
       <View style={styles.storyContainer}>
-        <TouchableOpacity onPress={() => navigation.navigate('Story', {item})}>
+        <TouchableOpacity onPress={() => navigation.navigate('StoryView', {item})}>
           <MaskedView
             style={styles.maskedView}
             maskElement={<View style={styles.storyView} />}>
@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
   storyView: {
     flex: 1,
     borderRadius: SCREEN_WIDTH / 9,
-    borderWidth: 3,
+    borderWidth: vw(3),
   },
   gradient: {
     flex: 1,

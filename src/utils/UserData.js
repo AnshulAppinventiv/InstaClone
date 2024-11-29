@@ -14,6 +14,10 @@ export const UserData = [
       image: require('../assets/data/elonpost.png'),
       caption: 'Hi Everyone, Elon musk is here',
       like: 3333,
+      comments: [
+        { id: 1, username: 'tech_guru', comment: 'This is amazing!' },
+        { id: 2, username: 'space_fan', comment: 'Keep going, Elon!' },
+      ],
     },
   },
   {
@@ -31,6 +35,10 @@ export const UserData = [
       image: require('../assets/data/harshp.png'),
       caption: 'hi....',
       like: 25,
+      comments: [
+        { id: 3, username: 'comedy_fan', comment: 'Loved the video!' },
+        { id: 4, username: 'funny_vibes', comment: 'Keep it up, Harsh!' },
+      ],
     },
   },
   {
@@ -48,6 +56,10 @@ export const UserData = [
       image: require('../assets/data/modis.png'),
       caption: 'A memorable time',
       like: 99,
+      comments: [
+        { id: 5, username: 'india_love', comment: 'Proud moment!' },
+        { id: 6, username: 'patriot', comment: 'Jai Hind!' },
+      ],
     },
   },
   {
@@ -65,6 +77,10 @@ export const UserData = [
       image: require('../assets/data/sonmp.png'),
       caption: 'No edit, No touch ups...',
       like: 88,
+      comments: [
+        { id: 7, username: 'fashionista', comment: 'Looking gorgeous!' },
+        { id: 8, username: 'style_guru', comment: 'Flawless!' },
+      ],
     },
   },
 ];

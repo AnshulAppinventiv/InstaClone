@@ -1,8 +1,10 @@
 import {View, Text, Image, TouchableOpacity, StyleSheet} from 'react-native';
 import React, {useState} from 'react';
 import {vw, vh, SCREEN_WIDTH} from '../utils/dimension';
+import { useNavigation } from '@react-navigation/native';
 
-const ProfileHeader = () => {
+const ProfileHeader = ({userName}) => {
+  const navigation = useNavigation();
   const [open, setOpen] = useState(false);
 
   const handleModal = () => {
@@ -16,14 +18,14 @@ const ProfileHeader = () => {
             source={require('../assets/icon/lock.png')}
             style={styles.lockImg}
           />
-          <Text style={styles.id}>singh_anshulpratap</Text>
+          <Text style={styles.id}>{userName || 'singh_anshulpratap'}</Text>
           <Image
             source={require('../assets/icon/bottomArrow.png')}
             style={styles.bottomArrow}
           />
         </View>
         <View style={styles.iconContainer}>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={()=>navigation.navigate('Addpost')}>
             <Image
               style={styles.addPostImg}
               source={require('../assets/footer/addPost.png')}

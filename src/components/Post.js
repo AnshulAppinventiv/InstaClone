@@ -1,10 +1,22 @@
 /* eslint-disable react-native/no-inline-styles */
-import {View, Text, Image, TouchableOpacity, StyleSheet} from 'react-native';
 import {UserData} from '../utils/UserData';
+import CustomModal from './CustomModal';
 import {vw, vh, SCREEN_WIDTH} from '../utils/dimension';
-import React, {useState} from 'react';
+import React, {useState, useRef} from 'react';
+import {
+  View,
+  Text,
+  Image,
+  StyleSheet,
+  TouchableOpacity,
+  Animated,
+  TouchableWithoutFeedback,
+} from 'react-native';
 
 const Post = () => {
+  const animatedScales = useRef({});
+  const lastTaps = useRef({});
+
   const [posts, setPosts] = useState(
     UserData.map(item => ({
       id: item.id,
@@ -13,6 +25,7 @@ const Post = () => {
       isSaved: false,
     })),
   );
+
   const handleLikePress = postId => {
     setPosts(prevPosts =>
       prevPosts.map(post =>
@@ -40,10 +53,57 @@ const Post = () => {
     );
   };
 
+  const handleDoubleTap = (postId, postLiked) => {
+    if (!postLiked) {
+      handleLikePress(postId);
+    }
+    triggerLikeAnimation(postId);
+  };
+
+  const handleImageTap = itemId => {
+    const now = Date.now();
+    const DOUBLE_PRESS_DELAY = 300;
+
+    if (
+      lastTaps.current[itemId] &&
+      now - lastTaps.current[itemId] < DOUBLE_PRESS_DELAY
+    ) {
+      const currentPost = posts.find(post => post.id === itemId);
+      handleDoubleTap(itemId, currentPost.liked);
+    } else {
+      lastTaps.current[itemId] = now;
+    }
+  };
+
+  const initializeRefsForItem = itemId => {
+    if (!animatedScales.current[itemId]) {
+      animatedScales.current[itemId] = new Animated.Value(0);
+    }
+    if (!lastTaps.current[itemId]) {
+      lastTaps.current[itemId] = null;
+    }
+  };
+
+  const triggerLikeAnimation = itemId => {
+    Animated.sequence([
+      Animated.timing(animatedScales.current[itemId], {
+        toValue: 1.5,
+        duration: 300,
+        useNativeDriver: true,
+      }),
+      Animated.timing(animatedScales.current[itemId], {
+        toValue: 0,
+        duration: 300,
+        useNativeDriver: true,
+      }),
+    ]).start();
+  };
+
   return (
     <View style={styles.mainContainer}>
       {UserData.map(item => {
         const currentPost = posts.find(post => post.id === item.id);
+        initializeRefsForItem(item.id);
 
         return (
           <View key={item.id} style={styles.itemContainer}>
@@ -60,17 +120,33 @@ const Post = () => {
               </TouchableOpacity>
             </View>
 
-            <View>
-              <Image style={styles.postImg} source={item.post.image} />
-            </View>
+            <TouchableWithoutFeedback onPress={() => handleImageTap(item.id)}>
+              <View>
+                <Image style={styles.postImg} source={item.post.image} />
+
+                {currentPost.liked && (
+                  <Animated.View
+                    style={{
+                      position: 'absolute',
+                      top: '50%',
+                      left: '50%',
+                      transform: [
+                        {translateX: -25},
+                        {translateY: -25},
+                        {scale: animatedScales.current[item.id]},
+                      ],
+                    }}>
+                    <Image
+                      source={require('../assets/icon/Liked.png')}
+                      style={styles.animatedLikeImg}
+                    />
+                  </Animated.View>
+                )}
+              </View>
+            </TouchableWithoutFeedback>
 
             <View style={styles.iconContainer}>
-              <View
-                style={{
-                  padding: vw(2),
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                }}>
+              <View style={styles.leftIconContainer}>
                 <TouchableOpacity onPress={() => handleLikePress(item.id)}>
                   <Image
                     style={styles.likeImg}
@@ -121,6 +197,8 @@ const Post = () => {
   );
 };
 
+export default Post;
+
 const styles = StyleSheet.create({
   mainContainer: {
     marginTop: vh(10),
@@ -129,7 +207,7 @@ const styles = StyleSheet.create({
     marginBottom: vh(16),
   },
   postHeader: {
-    paddingVertical:vh(2),
+    paddingVertical: vh(2),
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
@@ -161,12 +239,22 @@ const styles = StyleSheet.create({
     width: SCREEN_WIDTH,
     resizeMode: 'cover',
   },
+  animatedLikeImg: {
+    width: vw(60),
+    height: vw(60),
+    tintColor: 'white',
+  },
   iconContainer: {
     paddingHorizontal: vw(10),
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
     marginTop: vh(10),
+  },
+  leftIconContainer: {
+    padding: vw(2),
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   likeImg: {
     width: vw(24),
@@ -208,5 +296,3 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
   },
 });
-
-export default Post;

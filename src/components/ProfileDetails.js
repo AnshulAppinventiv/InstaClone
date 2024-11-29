@@ -1,8 +1,11 @@
 import {View, Text, Image, TouchableOpacity, StyleSheet} from 'react-native';
 import React from 'react';
 import { vh,vw } from '../utils/dimension';
+import { useNavigation } from '@react-navigation/native';
 
-const ProfileDetails = () => {
+const ProfileDetails = ({ name, bio, imageUri }) => {
+  const navigation = useNavigation();
+
   return (
     <View style={styles.mainContainer}>
       <View style={styles.subContainer}>
@@ -23,14 +26,13 @@ const ProfileDetails = () => {
           <Text style={styles.detailsText}>Following</Text>
         </View>
       </View>
-      <Text style={styles.name}>Anshul Pratap Singh</Text>
-      <Image
+      <Text style={styles.name}>{name || 'Anshul Pratap Singh'}</Text>
+      <Image 
       source={(require('../assets/icon/flag.png'))}
       style={{width:vw(18),height:vw(18)}}/>
-      <Text>Sportsperson</Text>
-      <Text>Learner</Text>
+      <Text>{bio || 'Sportsperson'}</Text>
       <View style={styles.profileOptionContainer}>
-        <TouchableOpacity style={styles.editProfileButton}>
+        <TouchableOpacity style={styles.editProfileButton} onPress={()=>navigation.navigate('EditProfile')}>
           <Text>Edit Profile</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.shareProfileButton}>

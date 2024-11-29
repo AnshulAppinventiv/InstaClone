@@ -78,10 +78,6 @@
 
 // export default Search;
 
-
-
-
-
 // import React, {useState} from 'react';
 // import {Button, Image, FlatList, TouchableOpacity, View, Text} from 'react-native';
 // import {launchImageLibrary} from 'react-native-image-picker';
@@ -155,25 +151,31 @@
 
 // export default AddPost;
 
-
-
-
-
-
 import React, {useState, useEffect} from 'react';
-import {Button, Image, FlatList, TouchableOpacity, View, Text, Platform, PermissionsAndroid, Alert} from 'react-native';
+import {
+  Button,
+  Image,
+  FlatList,
+  TouchableOpacity,
+  View,
+  Text,
+  Platform,
+  PermissionsAndroid,
+  Alert,
+} from 'react-native';
 import {launchImageLibrary} from 'react-native-image-picker';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import {vh, vw} from '../../../utils/dimension';
+import {useNavigation} from '@react-navigation/native';
+import { styles } from './styles';
 
 const AddPost = () => {
+  const navigation = useNavigation();
   const [galleryPhotos, setGalleryPhotos] = useState([]);
   const [selectedImage, setSelectedImage] = useState(null);
 
   useEffect(() => {
     requestStoragePermission();
   }, []);
-
 
   const requestStoragePermission = async () => {
     if (Platform.OS === 'android') {
@@ -186,10 +188,13 @@ const AddPost = () => {
             buttonNeutral: 'Ask Me Later',
             buttonNegative: 'Cancel',
             buttonPositive: 'OK',
-          }
+          },
         );
         if (granted !== PermissionsAndroid.RESULTS.GRANTED) {
-          Alert.alert('Permission Denied', 'Storage permission is required to access photos.');
+          Alert.alert(
+            'Permission Denied',
+            'Storage permission is required to access photos.',
+          );
         }
       } catch (err) {
         console.warn(err);
@@ -197,47 +202,64 @@ const AddPost = () => {
     }
   };
 
-
   const openImagePicker = () => {
     launchImageLibrary(
       {
         mediaType: 'photo',
         selectionLimit: 20,
       },
-      (response) => {
+      response => {
         if (response.didCancel) {
           console.log('User cancelled image picker');
         } else if (response.errorMessage) {
           console.log('ImagePicker Error: ', response.errorMessage);
         } else if (response.assets && response.assets.length > 0) {
-          const selectedUris = response.assets.map((asset) => asset.uri);
+          const selectedUris = response.assets.map(asset => asset.uri);
           setGalleryPhotos(selectedUris);
           setSelectedImage(selectedUris[0]);
         }
-      }
+      },
     );
   };
 
-  const handleImageSelect = (imageUri) => {
+  const handleImageSelect = imageUri => {
     setSelectedImage(imageUri);
   };
 
   return (
-    <SafeAreaView style={{flex: 1}}>
-      <View style={{flex: 0.5, justifyContent: 'center', alignItems: 'center'}}>
+    <SafeAreaView style={styles.mainContainer}>
+      <View style={styles.header}>
+        <TouchableOpacity
+          onPress={() => {
+            navigation.goBack();
+          }}
+          style={styles.closeButton}>
+          <Image
+            source={require('../../../assets/icon/close.png')}
+            style={styles.closeImg}
+          />
+        </TouchableOpacity>
+        <View style={styles.newPostContainer}>
+          <Text style={styles.newPostText}>New post</Text>
+          <TouchableOpacity style={styles.nextButton}>
+            <Text style={styles.nextText}>Next</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+      <View style={styles.subContainer}>
         {selectedImage ? (
           <Image
             source={{uri: selectedImage}}
-            style={{width: '100%', height: '100%'}}
+            style={styles.selectedImg}
             resizeMode="contain"
           />
         ) : (
-          <Text style={{fontSize: 16, color: 'grey'}}>No image selected</Text>
+          <Text style={styles.noImgText}>No image selected</Text>
         )}
       </View>
 
       {/* Bottom Half - Gallery photos displayed in a grid */}
-      <View style={{flex: 0.5}}>
+      <View style={styles.bottomHalfContainer}>
         <FlatList
           data={galleryPhotos}
           numColumns={4}
@@ -246,7 +268,7 @@ const AddPost = () => {
             <TouchableOpacity onPress={() => handleImageSelect(item)}>
               <Image
                 source={{uri: item}}
-                style={{width: vw(91.4), height: vh(120), margin: vw(1)}}
+                style={styles.bottomImg}
                 resizeMode="cover"
               />
             </TouchableOpacity>
@@ -261,3 +283,4 @@ const AddPost = () => {
 };
 
 export default AddPost;
+
