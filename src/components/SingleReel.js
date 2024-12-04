@@ -8,7 +8,7 @@ import {
   StyleSheet,
 } from 'react-native';
 import Video from 'react-native-video';
-import {vw, vh, SCREEN_HEIGHT, SCREEN_WIDTH} from '../utils/dimension';
+import {vw, vh} from '../utils/dimension';
 
 const SingleReel = ({item, index, currentIndex}) => {
   const videoRef = useRef(null);
@@ -26,8 +26,7 @@ const SingleReel = ({item, index, currentIndex}) => {
 
   return (
     <View style={styles.mainContainer}>
-      <View
-        style={styles.container}>
+      <View style={styles.container}>
         <TouchableOpacity
           activeOpacity={0.9}
           onPress={() => setMute(!mute)}
@@ -44,146 +43,56 @@ const SingleReel = ({item, index, currentIndex}) => {
             style={styles.reels}
           />
         </TouchableOpacity>
-        <Image
-          source={require('../assets/icon/mute.png')}
-          style={{
-            width: mute ? 20 : 0,
-            height: mute ? 20 : 0,
-            tintcolor: 'white',
-            position: 'absolute',
-            backgroundColor: 'rgba(52,52,52,0.6)',
-            borderRadius: 50,
-            padding: mute ? 20 : 0,
-          }}
-        />
-        <View
-          style={{
-            position: 'absolute',
-            width: SCREEN_WIDTH,
-            zIndex: 1,
-            bottom: 0,
-            padding: vw(10),
-          }}>
-          <View style={{}}>
-            <TouchableOpacity style={{width: vw(150)}}>
-              <View
-                style={{
-                  width: vw(100),
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                }}>
-                <View
-                  style={{
-                    width: vw(30),
-                    height: vw(32),
-                    borderRadius: 50,
-                    backgroundColor: 'white',
-                    margin: 10,
-                  }}>
-                  <Image
-                    source={item.postProfile}
-                    style={{
-                      width: '100%',
-                      height: '100%',
-                      resizeMode: 'cover',
-                      borderRadius: 50,
-                    }}
-                  />
+        <View style={styles.details}>
+          <View>
+            <TouchableOpacity>
+              <View style={styles.userDetails}>
+                <View style={styles.profileImg}>
+                  <Image source={item.postProfile} style={styles.img} />
                 </View>
-                <Text style={{color: 'white', fontSize: 16}}>{item.title}</Text>
+                <Text style={styles.userName}>{item.title}</Text>
               </View>
             </TouchableOpacity>
-            <Text style={{color: 'white', fontSize: 14, marginHorizontal: 10}}>
-              {item.description}
-            </Text>
-            <View style={{flexDirection: 'row', padding: 10}}>
-              <Image
-                source={require('../assets/icon/musical-note.png')}
-                style={{
-                  width: vw(16),
-                  height: vw(16),
-                  marginRight: 6,
-                  tintColor: 'white',
-                }}
-              />
-              <Text style={{color: 'white'}}>Original Audio</Text>
+            <Text style={styles.captions}>{item.captions}</Text>
+            <View style={styles.music}>
+              <Text style={styles.audioText}>Original Audio</Text>
             </View>
           </View>
         </View>
-        <View
-          style={{
-            position: 'absolute',
-            bottom: vh(10),
-            right: 0,
-          }}>
-          <TouchableOpacity
-            onPress={() => setLike(!like)}
-            style={{padding: 10}}>
+        <View style={styles.iconsContainer}>
+          <TouchableOpacity style={styles.icons}>
             <Image
               source={
                 like
                   ? require('../assets/icon/Liked.png')
                   : require('../assets/icon/Like.png')
               }
-              style={{
-                width: vw(24),
-                height: vw(24),
-                resizeMode: 'contain',
-                tintColor: like ? 'red' : 'white',
-              }}
+              style={styles.likeImg}
             />
-            <Text style={{color: 'white'}}>{item.likes}</Text>
+            <Text style={styles.likeCounts}>{item.likes}</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={{padding: 10}}>
+          <TouchableOpacity style={styles.icons}>
             <Image
               source={require('../assets/icon/Comment.png')}
-              style={{
-                width: vw(24),
-                height: vw(24),
-                tintColor: 'white',
-                resizeMode: 'contain',
-              }}
+              style={styles.commentsImg}
             />
           </TouchableOpacity>
-          <TouchableOpacity style={{padding: 10}}>
+          <TouchableOpacity style={styles.icons}>
             <Image
               source={require('../assets/icon/share.png')}
-              style={{
-                width: vw(24),
-                height: vw(24),
-                tintColor: 'white',
-                resizeMode: 'contain',
-              }}
+              style={styles.shareImg}
             />
           </TouchableOpacity>
-          <TouchableOpacity style={{padding: 10}}>
+          <TouchableOpacity style={styles.icons}>
             <Image
               source={require('../assets/icon/more.png')}
-              style={{
-                width: vw(22),
-                height: vw(22),
-                tintColor: 'white',
-                resizeMode: 'contain',
-              }}
+              style={styles.threeDots}
             />
           </TouchableOpacity>
-          <View
-            style={{
-              width: vw(30),
-              height: vw(30),
-              borderRadius: 10,
-              borderWidth: 2,
-              borderColor: 'white',
-              margin: vw(10),
-            }}>
+          <View style={styles.audio}>
             <Image
-              source={item.postProfile}
-              style={{
-                width: '100%',
-                height: '100%',
-                borderRadius: 10,
-                resizeMode: 'cover',
-              }}
+              source={require('../assets/icon/musical-note.png')}
+              style={styles.audioImg}
             />
           </View>
         </View>
@@ -197,23 +106,116 @@ export default SingleReel;
 const styles = StyleSheet.create({
   mainContainer: {
     height: Dimensions.get('window').height,
-    bottom: 80,
+    bottom: vh(75),
   },
-  container:{
+  container: {
     width: Dimensions.get('window').width,
     height: Dimensions.get('window').height,
     position: 'relative',
     justifyContent: 'center',
     alignItems: 'center',
   },
-  reelContainer:{
+  reelContainer: {
     width: '100%',
     height: '100%',
     position: 'absolute',
   },
-reels:{
-  width: '100%',
-  height: '100%',
-  position: 'absolute',
-},
+  reels: {
+    width: '100%',
+    height: '100%',
+    position: 'absolute',
+  },
+  details: {
+    position: 'absolute',
+    width: '100%',
+    bottom: 0,
+    padding: vw(10),
+  },
+  userDetails: {
+    width: vw(100),
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  profileImg: {
+    width: vw(30),
+    height: vw(32),
+    borderRadius: 50,
+    backgroundColor: 'white',
+    margin: vw(10),
+  },
+  img: {
+    width: '100%',
+    height: '100%',
+    resizeMode: 'cover',
+    borderRadius: 50,
+  },
+  userName: {
+    color: 'white',
+    fontSize: 16,
+  },
+  captions: {
+    color: 'white',
+    fontSize: 14,
+    marginHorizontal: vw(10),
+  },
+  music: {
+    flexDirection: 'row',
+    padding: vw(10),
+  },
+  audioText: {
+    color: 'white',
+  },
+  iconsContainer: {
+    position: 'absolute',
+    bottom: 10,
+    right: 0,
+  },
+  likeImg: {
+    height: vw(23),
+    width: vw(23),
+    resizeMode:'contain',
+    tintColor: 'white',
+  },
+  likeCounts: {
+    color: 'white',
+    top: 5,
+  },
+  icons: {
+    padding: vw(10),
+  },
+  commentsImg: {
+    width: vw(24),
+    height: vw(24),
+    tintColor: 'white',
+    resizeMode: 'contain',
+  },
+  shareImg: {
+    width: vw(24),
+    height: vw(24),
+    tintColor: 'white',
+    resizeMode: 'contain',
+  },
+  threeDots: {
+    width: vw(24),
+    height: vw(24),
+    tintColor: 'white',
+    resizeMode:'contain',
+  },
+  audio: {
+    width: vw(30),
+    height: vw(30),
+    borderRadius: 10,
+    borderWidth: 2,
+    borderColor: 'white',
+    margin: vw(10),
+    alignItems:'center',
+    justifyContent:'center',
+  },
+  audioImg: {
+    width: vw(20),
+    height: vw(20),
+    borderRadius: 10,
+    resizeMode: 'contain',
+    tintColor:'white',
+  },
 });

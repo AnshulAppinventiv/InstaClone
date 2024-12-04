@@ -76,8 +76,9 @@ const styles = StyleSheet.create({
     // backgroundColor:'#F4F4F4'
   },
   sendIcon: {
-    width: vw(25),
-    height: vw(25),
+    width: vw(22),
+    height: vw(22),
+    resizeMode:'contain',
     marginLeft: 10,
     // alignSelf:'center'
   },

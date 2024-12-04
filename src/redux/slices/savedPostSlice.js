@@ -13,11 +13,6 @@ const savedPostSlice = createSlice({
         state.savedPostIds.push(action.payload);
       }
     },
-    removeSavedPost: (state, action) => {
-      state.savedPostIds = state.savedPostIds.filter(
-        postId => postId !== action.payload
-      );
-    },
   },
 });
 

@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import {
   View,
   Text,
@@ -44,7 +45,7 @@ const StoryView = ({navigation, route}) => {
             placeholder="Message"
             placeholderTextColor={'white'}
           />
-          <TouchableOpacity style={{marginLeft: 10}}>
+          <TouchableOpacity style={styles.likeButton}>
             <Image
               style={styles.icon}
               source={require('../assets/icon/Like.png')}
@@ -80,7 +81,7 @@ const styles = StyleSheet.create({
   profileImg: {
     height: vw(32),
     width: vw(32),
-    resizeMode:'cover',
+    resizeMode: 'cover',
     borderRadius: 20,
     marginRight: vw(10),
   },
@@ -107,6 +108,7 @@ const styles = StyleSheet.create({
     marginTop: vh(10),
     alignItems: 'center',
     justifyContent: 'space-evenly',
+    paddingHorizontal: vw(6),
   },
   msgInput: {
     borderWidth: 1,
@@ -123,5 +125,8 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
     tintColor: 'white',
     marginRight: vw(10),
+  },
+  likeButton: {
+    marginLeft: vw(10),
   },
 });

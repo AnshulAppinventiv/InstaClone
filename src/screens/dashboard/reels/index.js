@@ -5,7 +5,7 @@ import { styles } from './styles';
 import {SafeAreaView} from 'react-native-safe-area-context';
 const Reels = () => {
   return (
-    <SafeAreaView style={styles.mainContainer}>
+    <View style={styles.mainContainer}>
       <View style={styles.header}>
         <Text style={styles.reelsText}>Reels</Text>
         <Image
@@ -14,7 +14,7 @@ const Reels = () => {
         />
       </View>
       <ReelsComponent />
-    </SafeAreaView>
+    </View>
   );
 };
 
