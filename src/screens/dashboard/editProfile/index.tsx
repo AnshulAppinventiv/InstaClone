@@ -188,7 +188,7 @@ const EditProfile = ({navigation}: any) => {
           <TouchableOpacity style={styles.container2} onPress={openGallery}>
             <View style={styles.container1}>
               <Image
-                source={require('../../../assets/icon/images.png')}
+                source={require('../../../assets/icon/gallery.png')}
                 style={styles.iconImageSize}
               />
               <View style={styles.textArrange}>

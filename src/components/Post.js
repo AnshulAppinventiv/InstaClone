@@ -1,8 +1,11 @@
 /* eslint-disable react-native/no-inline-styles */
 import {UserData} from '../utils/UserData';
 import CustomModal from './CustomModal';
+import MoreModal from './moreModal';
 import {vw, vh, SCREEN_WIDTH} from '../utils/dimension';
 import React, {useState, useRef} from 'react';
+import { useSelector,useDispatch } from 'react-redux';
+import { addSavedPost,removeSavedPost } from '../redux/slices/savedPostSlice';
 import {
   View,
   Text,
@@ -12,17 +15,26 @@ import {
   Animated,
   TouchableWithoutFeedback,
 } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 const Post = () => {
+  const dispatch = useDispatch(); // Use to dispatch actions
+  const savedPostIds = useSelector(state => state.savedPost.savedPostIds);
+  const navigation = useNavigation();
+
+
   const animatedScales = useRef({});
   const lastTaps = useRef({});
+  const [isCommentModalVisible, setIsCommentModalVisible] = useState(false);
+  const [isMoreModalVisible, setIsMoreModalVisible] = useState(false);
+  const [selectedPostComments, setSelectedPostComments] = useState([]);
 
   const [posts, setPosts] = useState(
     UserData.map(item => ({
       id: item.id,
       liked: false,
       likeCount: item.post.like,
-      isSaved: false,
+      isSaved:  savedPostIds.includes(item.id),
     })),
   );
 
@@ -39,8 +51,25 @@ const Post = () => {
       ),
     );
   };
+  const openMoreModal = () => {
+    console.log('ModalOpen');
+    setIsMoreModalVisible(true);
+  };
+
+  const openCommentModal = postComments => {
+    setSelectedPostComments(postComments);
+    setIsCommentModalVisible(true);
+  };
 
   const handleSavePress = postId => {
+    // const postToSave = posts.find(post => post.id === postId);
+    const isPostSaved = savedPostIds.includes(postId);
+
+    if (isPostSaved) {
+      dispatch(removeSavedPost(postId)); // Remove from saved posts
+    } else {
+      dispatch(addSavedPost(postId)); // Add to saved posts
+    }
     setPosts(prevPosts =>
       prevPosts.map(post =>
         post.id === postId
@@ -100,100 +129,118 @@ const Post = () => {
   };
 
   return (
-    <View style={styles.mainContainer}>
-      {UserData.map(item => {
-        const currentPost = posts.find(post => post.id === item.id);
-        initializeRefsForItem(item.id);
+    <>
+      <View style={styles.mainContainer}>
+        {UserData.map(item => {
+          const currentPost = posts.find(post => post.id === item.id);
+          initializeRefsForItem(item.id);
 
-        return (
-          <View key={item.id} style={styles.itemContainer}>
-            <View style={styles.postHeader}>
-              <View style={styles.profileContainer}>
-                <Image style={styles.profileImg} source={item.profile} />
-                <Text style={styles.name}>{item.username}</Text>
+          return (
+            <View key={item.id} style={styles.itemContainer}>
+              <View style={styles.postHeader}>
+                <View style={styles.profileContainer}>
+                  <Image style={styles.profileImg} source={item.profile} />
+                  <Text style={styles.name}>{item.username}</Text>
+                </View>
+                <TouchableOpacity onPress={() => openMoreModal()}>
+                  <Image
+                    source={require('../assets/icon/more.png')}
+                    style={styles.moreImg}
+                  />
+                </TouchableOpacity>
               </View>
-              <TouchableOpacity>
-                <Image
-                  source={require('../assets/icon/more.png')}
-                  style={styles.moreImg}
-                />
-              </TouchableOpacity>
-            </View>
 
-            <TouchableWithoutFeedback onPress={() => handleImageTap(item.id)}>
-              <View>
-                <Image style={styles.postImg} source={item.post.image} />
+              <TouchableWithoutFeedback onPress={() => handleImageTap(item.id)}>
+                <View>
+                  <Image style={styles.postImg} source={item.post.image} />
 
-                {currentPost.liked && (
-                  <Animated.View
-                    style={{
-                      position: 'absolute',
-                      top: '50%',
-                      left: '50%',
-                      transform: [
-                        {translateX: -25},
-                        {translateY: -25},
-                        {scale: animatedScales.current[item.id]},
-                      ],
-                    }}>
+                  {currentPost.liked && (
+                    <Animated.View
+                      style={{
+                        position: 'absolute',
+                        top: '50%',
+                        left: '50%',
+                        transform: [
+                          {translateX: -25},
+                          {translateY: -25},
+                          {scale: animatedScales.current[item.id]},
+                        ],
+                      }}>
+                      <Image
+                        source={require('../assets/icon/Liked.png')}
+                        style={styles.animatedLikeImg}
+                      />
+                    </Animated.View>
+                  )}
+                </View>
+              </TouchableWithoutFeedback>
+
+              <View style={styles.iconContainer}>
+                <View style={styles.leftIconContainer}>
+                  <TouchableOpacity onPress={() => handleLikePress(item.id)}>
                     <Image
-                      source={require('../assets/icon/Liked.png')}
-                      style={styles.animatedLikeImg}
+                      style={styles.likeImg}
+                      source={
+                        currentPost.liked
+                          ? require('../assets/icon/Liked.png')
+                          : require('../assets/icon/Like.png')
+                      }
                     />
-                  </Animated.View>
-                )}
-              </View>
-            </TouchableWithoutFeedback>
+                  </TouchableOpacity>
+                  <Text style={styles.likes}>{currentPost.likeCount}</Text>
 
-            <View style={styles.iconContainer}>
-              <View style={styles.leftIconContainer}>
-                <TouchableOpacity onPress={() => handleLikePress(item.id)}>
+                  <TouchableOpacity
+                    onPress={() => openCommentModal(item.post.comments)}>
+                    <Image
+                      style={styles.commentImg}
+                      source={require('../assets/icon/Comment.png')}
+                    />
+                  </TouchableOpacity>
+
+                  <TouchableOpacity onPress={()=> navigation.navigate('SavedPost')}>
+                    <Image
+                      style={styles.shareImg}
+                      source={require('../assets/icon/share.png')}
+                    />
+                  </TouchableOpacity>
+                </View>
+
+                <TouchableOpacity onPress={() => handleSavePress(item.id)}>
                   <Image
-                    style={styles.likeImg}
                     source={
-                      currentPost.liked
-                        ? require('../assets/icon/Liked.png')
-                        : require('../assets/icon/Like.png')
+                      currentPost.isSaved
+                        ? require('../assets/icon/saved.png')
+                        : require('../assets/icon/save.png')
                     }
-                  />
-                </TouchableOpacity>
-                <Text style={styles.likes}>{currentPost.likeCount}</Text>
-
-                <TouchableOpacity>
-                  <Image
-                    style={styles.commentImg}
-                    source={require('../assets/icon/Comment.png')}
-                  />
-                </TouchableOpacity>
-
-                <TouchableOpacity>
-                  <Image
-                    style={styles.shareImg}
-                    source={require('../assets/icon/share.png')}
+                    style={styles.saveImg}
                   />
                 </TouchableOpacity>
               </View>
 
-              <TouchableOpacity onPress={() => handleSavePress(item.id)}>
-                <Image
-                  source={
-                    currentPost.isSaved
-                      ? require('../assets/icon/saved.png')
-                      : require('../assets/icon/save.png')
-                  }
-                  style={styles.saveImg}
-                />
-              </TouchableOpacity>
-            </View>
+              <View style={styles.captionContainer}>
+                <Text style={styles.nameInCaption}>{item.username} </Text>
+                <Text>{item.post.caption}</Text>
+              </View>
 
-            <View style={styles.captionContainer}>
-              <Text style={styles.nameInCaption}>{item.username} </Text>
-              <Text>{item.post.caption}</Text>
+              {/* <CustomModal
+              visible={isCommentModalVisible}
+              // onClose={() => setIsCommentModalVisible(false)}
+              // data={selectedPostComments}
+            /> */}
             </View>
-          </View>
-        );
-      })}
-    </View>
+          );
+        })}
+      </View>
+      <CustomModal
+        visible={isCommentModalVisible}
+        onClose={() => setIsCommentModalVisible(false)}
+        data={selectedPostComments}
+      />
+      <MoreModal
+        visible={isMoreModalVisible}
+        onClose={() => setIsMoreModalVisible(false)}
+      />
+    </>
   );
 };
 
@@ -207,7 +254,7 @@ const styles = StyleSheet.create({
     marginBottom: vh(16),
   },
   postHeader: {
-    paddingVertical: vh(2),
+    // paddingVertical: vh(2),
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
@@ -235,7 +282,7 @@ const styles = StyleSheet.create({
     height: vw(18),
   },
   postImg: {
-    height: vh(460),
+    height: vh(433),
     width: SCREEN_WIDTH,
     resizeMode: 'cover',
   },

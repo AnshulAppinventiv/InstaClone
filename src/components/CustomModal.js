@@ -1,53 +1,144 @@
 import React from 'react';
-import { Modal, View, Text, StyleSheet, FlatList, TouchableOpacity } from 'react-native';
+import {
+  Modal,
+  View,
+  Text,
+  StyleSheet,
+  FlatList,
+  TouchableOpacity,
+  TouchableWithoutFeedback,
+  Image,
+} from 'react-native';
+import {UserData} from '../utils/UserData';
+import {vh, vw, SCREEN_HEIGHT, SCREEN_WIDTH} from '../utils/dimension';
+import {useState} from 'react';
 
-const CustomModal = ({ visible, onClose, data }) => {
+const CustomModal = ({visible, onClose, data}) => {
+  const [commentData, setCommentData] = useState(
+    data.map(item => ({
+      ...item, // spread the original item properties
+      liked: false, // Add a liked status to each comment
+    }))
+  );
+
+  const handleLikePress = id => {
+    setCommentData(prevComments =>
+      prevComments.map(comment =>
+        comment.id === id
+          ? { ...comment, liked: !comment.liked } // Toggle like status
+          : comment
+      )
+    );
+  };
   return (
-    <Modal animationType="slide" transparent={true} visible={visible}>
-      <View style={styles.modalContainer}>
-        <View style={styles.modalContent}>
-          <FlatList
-            data={data}
-            keyExtractor={(item) => item.id.toString()}
-            renderItem={({ item }) => (
-              <View style={styles.commentItem}>
-                <Text style={styles.username}>{item.username}</Text>
-                <Text>{item.comment}</Text>
+    <Modal visible={visible} animationType="slide" transparent={true}>
+      <TouchableWithoutFeedback onPress={onClose}>
+        <View style={styles.modalContainer}>
+          <View style={styles.modalContent}>
+            <View style={styles.contentHeader}>
+              <View style={{alignItems: 'center'}}>
+                <View style={styles.headerLine} />
+                <Text style={styles.headerText}>Comments</Text>
               </View>
-            )}
-          />
-          <TouchableOpacity style={styles.closeButton} onPress={onClose}>
-            <Text style={styles.closeButtonText}>Close</Text>
-          </TouchableOpacity>
+            </View>
+            <View style={styles.listContainer}>
+              <FlatList
+                data={data}
+                keyExtractor={item => item.id.toString()}
+                renderItem={({item}) => (
+                  <View style={styles.commentItem}>
+                    <View style={styles.commentTextContainer}>
+                      <Text style={styles.username}>{item.username}</Text>
+                      <Text style={styles.commentText}>{item.comment}</Text>
+                      <Text style={styles.replyText}>Reply</Text>
+                    </View>
+                    <TouchableOpacity onPress={() => handleLikePress(item.id)}>
+                      <Image
+                        source={
+                          item.liked
+                            ? require('../assets/icon/Liked.png') // Liked image
+                            : require('../assets/icon/Like.png') // Default Like image
+                        }
+                        style={styles.likeImg}
+                      />
+                    </TouchableOpacity>
+                  </View>
+                )}
+              />
+            </View>
+          </View>
         </View>
-      </View>
+      </TouchableWithoutFeedback>
     </Modal>
   );
 };
 
 const styles = StyleSheet.create({
   modalContainer: {
-    flex: 1,
-    justifyContent: 'center',
+    width: SCREEN_WIDTH,
+    height: SCREEN_HEIGHT,
+    justifyContent: 'flex-end',
     alignItems: 'center',
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    marginTop: vh(20),
+    backgroundColor: 'white',
   },
   modalContent: {
-    backgroundColor: 'white',
-    width: '90%',
-    padding: 20,
+    width: SCREEN_WIDTH,
+    height: SCREEN_HEIGHT / 1.05,
+    borderWidth: 0.4,
     borderRadius: 10,
-    maxHeight: '80%',
+    backgroundColor: 'white',
+  },
+  contentHeader: {
+    height: vh(52),
+    alignItems: 'center',
+    borderColor: 'grey',
+    borderBottomWidth: 0.2,
+  },
+  headerLine: {
+    width: vw(36),
+    borderWidth: 2,
+    borderRadius: 20,
+    borderColor: 'grey',
+    marginTop: vh(10),
+  },
+  headerText: {
+    fontSize: 15,
+    marginTop: vh(10),
+    fontWeight: '700',
+  },
+  listContainer: {
+    marginTop: vh(10),
   },
   commentItem: {
-    marginBottom: 15,
+    flexDirection: 'row',
+    marginBottom: vh(15),
+    paddingHorizontal: vw(12),
+    alignItems: 'center',
+    justifyContent: 'space-between',
   },
   username: {
-    fontWeight: 'bold',
+    fontWeight: '600',
+  },
+  commentText: {
+    fontSize: 15,
+    marginTop: vh(4),
+  },
+  replyText: {
+    marginTop: vh(3),
+    fontSize: 13,
+    fontWeight: '700',
+    color: 'grey',
+  },
+  likeImg: {
+    width: vw(15),
+    height: vw(15),
+    resizeMode: 'contain',
   },
   closeButton: {
-    marginTop: 20,
-    padding: 10,
+    marginTop: vh(20),
+    padding: vw(10),
+    justifyContent: 'flex-end',
     backgroundColor: '#2196F3',
     borderRadius: 5,
   },

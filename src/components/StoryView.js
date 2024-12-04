@@ -79,7 +79,8 @@ const styles = StyleSheet.create({
   },
   profileImg: {
     height: vw(32),
-    width: vw(30),
+    width: vw(32),
+    resizeMode:'cover',
     borderRadius: 20,
     marginRight: vw(10),
   },

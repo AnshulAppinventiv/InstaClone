@@ -15,7 +15,7 @@ const Header = () => {
         <TouchableOpacity style={styles.likeImg}>
           <Image source={require('../assets/icon/Like.png')} />
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigation.navigate('ChatScreen')}>
+        <TouchableOpacity onPress={() => navigation.navigate('Chats')}>
           <View style={styles.msgContainer}>
             <Image source={require('../assets/icon/share.png')} />
             <View style={styles.numberOfMsgView}>
@@ -60,15 +60,18 @@ const styles = StyleSheet.create({
     position: 'relative',
   },
   numberOfMsgView: {
+    width:vw(18),
+    height:vw(18),
     position: 'absolute',
-    bottom: vw(18),
+    bottom: vw(17),
     left: vw(15),
+    backgroundColor:'red',
+    borderRadius: vw(10),
+    alignItems:'center',
+    justifyContent:'center',
   },
   numberOfMsgText: {
-    height: vw(18),
-    width: vw(18),
-    backgroundColor: 'red',
+    fontSize:14,
     textAlign: 'center',
-    borderRadius: vw(10),
   },
 });

@@ -27,6 +27,7 @@ const InputBox = ({
         keyboardType={keyboardType}
         maxLength={maxLength}
         placeholderTextColor={'grey'}
+        autoCapitalize={'none'}
       />
       {errors && touched && <Text style={styles.errorMsg}>{errors}</Text>}
     </View>

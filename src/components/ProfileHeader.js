@@ -1,14 +1,13 @@
 import {View, Text, Image, TouchableOpacity, StyleSheet} from 'react-native';
-import React, {useState} from 'react';
+import React from 'react';
 import {vw, vh, SCREEN_WIDTH} from '../utils/dimension';
-import { useNavigation } from '@react-navigation/native';
+import {useNavigation} from '@react-navigation/native';
 
 const ProfileHeader = ({userName}) => {
   const navigation = useNavigation();
-  const [open, setOpen] = useState(false);
 
-  const handleModal = () => {
-    setOpen(!open);
+  const handleSectionList = () => {
+    navigation.navigate('SectionMenu');
   };
   return (
     <View style={styles.mainContainer}>
@@ -25,13 +24,13 @@ const ProfileHeader = ({userName}) => {
           />
         </View>
         <View style={styles.iconContainer}>
-          <TouchableOpacity onPress={()=>navigation.navigate('Addpost')}>
+          <TouchableOpacity onPress={() => navigation.navigate('Addpost')}>
             <Image
               style={styles.addPostImg}
               source={require('../assets/footer/addPost.png')}
             />
           </TouchableOpacity>
-          <TouchableOpacity onPress={handleModal}>
+          <TouchableOpacity onPress={handleSectionList}>
             <Image
               style={styles.menuImg}
               source={require('../assets/icon/Menu.png')}
@@ -61,7 +60,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-evenly',
     backgroundColor: 'white',
     alignItems: 'center',
-    marginLeft:vw(8),
+    marginLeft: vw(8),
   },
   lockImg: {
     width: vw(12),
@@ -76,7 +75,7 @@ const styles = StyleSheet.create({
   bottomArrow: {
     width: vw(12),
     height: vw(10),
-    resizeMode:'contain',
+    resizeMode: 'contain',
   },
   iconContainer: {
     width: vw(70),
@@ -93,7 +92,7 @@ const styles = StyleSheet.create({
   menuImg: {
     width: vw(22),
     height: vw(22),
-    resizeMode:'contain',
+    resizeMode: 'contain',
     tintColor: 'black',
   },
 });

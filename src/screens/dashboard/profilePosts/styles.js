@@ -7,9 +7,8 @@ export const styles = StyleSheet.create({
   },
   header: {
     flexDirection: 'row',
-    alignItems: 'flex-end',
-    paddingHorizontal: vw(16),
-    paddingTop: vh(10),
+    alignItems:'center',
+    padding: vw(16),
   },
   backImg: {
     width: vw(26),
@@ -33,8 +32,7 @@ export const styles = StyleSheet.create({
     marginLeft: vw(6),
   },
   itemContainer: {
-    marginBottom: vh(16),
-    marginTop: vh(30),
+    marginTop: vh(20),
   },
   postHeader: {
     paddingVertical: vh(2),

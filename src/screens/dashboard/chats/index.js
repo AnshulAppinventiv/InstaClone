@@ -1,16 +1,27 @@
 import React from 'react';
-import {View, Text, FlatList, Image, TouchableOpacity} from 'react-native';
+import {
+  View,
+  Text,
+  FlatList,
+  Image,
+  TouchableOpacity,
+} from 'react-native';
 import {UserData} from '../../../utils/UserData';
 import {useNavigation} from '@react-navigation/native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import InputBox from '../../../components/InputBox';
 import {styles} from './styles';
 
-const ChatScreen = () => {
+const Chats = () => {
   const navigation = useNavigation();
   const renderItem = ({item}) => (
     <View style={styles.listContainer}>
-      <TouchableOpacity style={styles.chatItem}>
+      <TouchableOpacity
+        onPress={() => {
+          navigation.navigate('ChatScreen', {UserData: item});
+        }}
+        activeOpacity={0.7}
+        style={styles.chatItem}>
         <Image source={item.profile} style={styles.profilePic} />
         <View style={styles.chatDetails}>
           <Text style={styles.userName}>{item.name}</Text>
@@ -54,23 +65,27 @@ const ChatScreen = () => {
           />
         </TouchableOpacity>
       </View>
-      <InputBox
-        placeholder={'Ask Meta AI or Search'}
-        style={styles.inputText}
-      />
-      <View style={styles.subContainer}>
-        <Text style={styles.msgText}>Messages</Text>
-        <TouchableOpacity>
-          <Text style={styles.RequestText}>Requests</Text>
-        </TouchableOpacity>
-      </View>
       <FlatList
         data={UserData}
         keyExtractor={item => item.id.toString()}
         renderItem={renderItem}
+        ListHeaderComponent={
+          <View>
+            <InputBox
+              placeholder={'Ask Meta AI or Search'}
+              style={styles.inputText}
+            />
+            <View style={styles.subContainer}>
+              <Text style={styles.msgText}>Messages</Text>
+              <TouchableOpacity>
+                <Text style={styles.RequestText}>Requests</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        }
       />
     </SafeAreaView>
   );
 };
 
-export default ChatScreen;
+export default Chats;

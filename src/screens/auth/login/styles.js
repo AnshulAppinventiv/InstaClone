@@ -72,6 +72,9 @@ export const styles = StyleSheet.create({
   error: {
     color: 'red',
   },
+  errorText:{
+    color:'red',
+  },
   inputView: {
     borderWidth: 1,
     // width: vw(343),

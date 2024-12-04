@@ -1,56 +1,61 @@
 import React, {useState} from 'react';
-import {View, Text, TouchableOpacity, SafeAreaView} from 'react-native';
-import InputBox from '../../../components/InputBox';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  SafeAreaView,
+  TextInput,
+} from 'react-native';
 import CustomButton from '../../../components/CustomButton';
 import {useNavigation} from '@react-navigation/native';
-import {validateSignup, signupInitialValue} from '../utils';
 import {styles} from './styles';
 
 const Signup = () => {
   const navigation = useNavigation();
-  const [values, setValues] = useState(signupInitialValue);
-  const [errors, setErrors] = useState({});
+  const [mobileNumber, setMobileNumber] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
 
-  const handleInputChange = (field, value) => {
-    setValues({
-      ...values,
-      [field]: value,
-    });
-  };
-
-  const handleSignup = () => {
-    const validationErrors = validateSignup(values);
-    setErrors(validationErrors);
-
-    if (Object.keys(validationErrors).length === 0) {
-      console.log(values);
-      // navigate or handle signup here
+  const handleNextPress = () => {
+    if (mobileNumber.length === 10) {
+      setErrorMessage('');
+      navigation.navigate('Login');
+    } else {
+      setErrorMessage('Mobile Number should consist of 10 digits');
     }
   };
 
   return (
     <SafeAreaView style={styles.mainContainer}>
       <View style={styles.subContainer}>
-        <Text style={styles.text}>What's your mobile number</Text>
+        <Text style={styles.text}>What's your mobile number?</Text>
 
-        <InputBox
+        <TextInput
           placeholder={'Mobile Number'}
-          onChangeText={value => handleInputChange('mobileNumber', value)}
-          value={values.mobileNumber}
-          errors={errors.mobileNumber}
+          onChangeText={value => setMobileNumber(value)}
+          value={mobileNumber} 
+          style={styles.mobileInput}
           keyboardType={'numeric'}
           maxLength={10}
         />
-        <CustomButton buttonTitle={'Sign up'} onPress={handleSignup} />
-        <TouchableOpacity style={styles.signUpWithEmailButton}>
-          <Text style={styles.signUpWithEmailText}>Sign up with email</Text>
-        </TouchableOpacity>
+        {errorMessage ? (
+          <Text style={styles.errorText}>{errorMessage}</Text>
+        ) : null}
+        <CustomButton buttonTitle={'Next'} onPress={handleNextPress} />
+
+        <CustomButton
+          onPress={() => {
+            navigation.navigate('SignupEmail');
+            console.log('signup')
+          }}
+          buttonTitle={'Sign up with email'}
+        />
       </View>
-      <View style={styles.loginButton}>
-        <TouchableOpacity onPress={() => navigation.goBack()}>
-          <Text style={styles.loginText}>Login</Text>
-        </TouchableOpacity>
-      </View>
+
+      <TouchableOpacity
+        style={styles.loginButton}
+        onPress={() => navigation.goBack()}>
+        <Text style={styles.loginText}>I already have an account</Text>
+      </TouchableOpacity>
     </SafeAreaView>
   );
 };

@@ -1,16 +1,16 @@
-/* eslint-disable react-native/no-inline-styles */
 import React, {useRef, useState} from 'react';
-import {View, Text, Dimensions, TouchableOpacity, Image} from 'react-native';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  Image,
+  Dimensions,
+  StyleSheet,
+} from 'react-native';
 import Video from 'react-native-video';
-import Ionic from 'react-native-vector-icons/Ionicons';
 import {vw, vh, SCREEN_HEIGHT, SCREEN_WIDTH} from '../utils/dimension';
-// import AntDesign from 'react-native-vector-icons/AntDesign';
-// import Feather from 'react-native-vector-icons/Feather';
 
 const SingleReel = ({item, index, currentIndex}) => {
-//   const windowWidth = Dimensions.get('window').width;
-//   const windowHeight = Dimensions.get('window').height;
-
   const videoRef = useRef(null);
 
   const onBuffer = buffer => {
@@ -25,24 +25,13 @@ const SingleReel = ({item, index, currentIndex}) => {
   const [like, setLike] = useState(item.isLike);
 
   return (
-    <View style={{backgroundColor: 'black', paddingBottom: vh(50)}}>
+    <View style={styles.mainContainer}>
       <View
-        style={{
-          width: SCREEN_WIDTH,
-          height: SCREEN_HEIGHT - 60,
-          position: 'relative',
-          justifyContent: 'center',
-          alignItems: 'center',
-          resizeMode: 'contain',
-        }}>
+        style={styles.container}>
         <TouchableOpacity
           activeOpacity={0.9}
           onPress={() => setMute(!mute)}
-          style={{
-            width: '100%',
-            height: '100%',
-            position: 'absolute',
-          }}>
+          style={styles.reelContainer}>
           <Video
             videoRef={videoRef}
             onBuffer={onBuffer}
@@ -52,18 +41,15 @@ const SingleReel = ({item, index, currentIndex}) => {
             paused={currentIndex === index ? false : true}
             source={item.video}
             muted={mute}
-            style={{
-              width: '100%',
-              height: '100%',
-              position: 'absolute',
-            }}
+            style={styles.reels}
           />
         </TouchableOpacity>
-        <Ionic
-          name="volume-mute"
+        <Image
+          source={require('../assets/icon/mute.png')}
           style={{
-            fontSize: mute ? 20 : 0,
-            color: 'white',
+            width: mute ? 20 : 0,
+            height: mute ? 20 : 0,
+            tintcolor: 'white',
             position: 'absolute',
             backgroundColor: 'rgba(52,52,52,0.6)',
             borderRadius: 50,
@@ -111,9 +97,14 @@ const SingleReel = ({item, index, currentIndex}) => {
               {item.description}
             </Text>
             <View style={{flexDirection: 'row', padding: 10}}>
-              <Ionic
-                name="ios-musical-note"
-                style={{color: 'white', fontSize: 16}}
+              <Image
+                source={require('../assets/icon/musical-note.png')}
+                style={{
+                  width: vw(16),
+                  height: vw(16),
+                  marginRight: 6,
+                  tintColor: 'white',
+                }}
               />
               <Text style={{color: 'white'}}>Original Audio</Text>
             </View>
@@ -122,66 +113,55 @@ const SingleReel = ({item, index, currentIndex}) => {
         <View
           style={{
             position: 'absolute',
-            bottom: vh(10), //edited
+            bottom: vh(10),
             right: 0,
           }}>
           <TouchableOpacity
             onPress={() => setLike(!like)}
             style={{padding: 10}}>
-            {/* <AntDesign
-            name={like ? 'heart' : 'hearto'}
-            style={{color: like ? 'red' : 'white', fontSize: 25}}
-          /> */}
             <Image
               source={
                 like
                   ? require('../assets/icon/Liked.png')
                   : require('../assets/icon/Like.png')
               }
-              style={{fontSize: 25, tintColor: 'white'}}
+              style={{
+                width: vw(24),
+                height: vw(24),
+                resizeMode: 'contain',
+                tintColor: like ? 'red' : 'white',
+              }}
             />
             <Text style={{color: 'white'}}>{item.likes}</Text>
           </TouchableOpacity>
           <TouchableOpacity style={{padding: 10}}>
-            {/* <Ionic
-            name="ios-chatbubble-outline"
-            style={{color: 'white', fontSize: 25}}
-          /> */}
             <Image
               source={require('../assets/icon/Comment.png')}
               style={{
-                width: 24,
-                height: 25,
+                width: vw(24),
+                height: vw(24),
                 tintColor: 'white',
                 resizeMode: 'contain',
               }}
             />
           </TouchableOpacity>
           <TouchableOpacity style={{padding: 10}}>
-            {/* <Ionic
-            name="paper-plane-outline"
-            style={{color: 'white', fontSize: 25}}
-          /> */}
             <Image
               source={require('../assets/icon/share.png')}
               style={{
-                width: 24,
-                height: 25,
+                width: vw(24),
+                height: vw(24),
                 tintColor: 'white',
                 resizeMode: 'contain',
               }}
             />
           </TouchableOpacity>
           <TouchableOpacity style={{padding: 10}}>
-            {/* <Feather
-            name="more-vertical"
-            style={{color: 'white', fontSize: 25}}
-          /> */}
             <Image
               source={require('../assets/icon/more.png')}
               style={{
-                width: 22,
-                height: 22,
+                width: vw(22),
+                height: vw(22),
                 tintColor: 'white',
                 resizeMode: 'contain',
               }}
@@ -189,12 +169,12 @@ const SingleReel = ({item, index, currentIndex}) => {
           </TouchableOpacity>
           <View
             style={{
-              width: 30,
-              height: 30,
+              width: vw(30),
+              height: vw(30),
               borderRadius: 10,
               borderWidth: 2,
               borderColor: 'white',
-              margin: 10,
+              margin: vw(10),
             }}>
             <Image
               source={item.postProfile}
@@ -213,3 +193,27 @@ const SingleReel = ({item, index, currentIndex}) => {
 };
 
 export default SingleReel;
+
+const styles = StyleSheet.create({
+  mainContainer: {
+    height: Dimensions.get('window').height,
+    bottom: 80,
+  },
+  container:{
+    width: Dimensions.get('window').width,
+    height: Dimensions.get('window').height,
+    position: 'relative',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  reelContainer:{
+    width: '100%',
+    height: '100%',
+    position: 'absolute',
+  },
+reels:{
+  width: '100%',
+  height: '100%',
+  position: 'absolute',
+},
+});

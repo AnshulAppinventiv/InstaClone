@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 import {
   View,
   TouchableOpacity,
@@ -17,7 +18,7 @@ const ProfilePost = () => {
   const renderItem = item => {
     return (
       <TouchableOpacity
-        onPress={() => navigation.navigate('ProfilePosts')}
+        onPress={() => navigation.navigate('ProfilePosts', {index: item.index})}
         activeOpacity={0.8}
         style={styles.postContainer}>
         <Image style={styles.postImg} source={item.item.post.image} />
@@ -75,7 +76,6 @@ const styles = StyleSheet.create({
   },
   postContainer: {
     marginTop: vh(3),
-    backgroundColor: 'red',
     marginRight: vw(3),
   },
   postImg: {

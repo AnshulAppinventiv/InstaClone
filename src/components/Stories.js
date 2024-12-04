@@ -8,13 +8,11 @@ import {
 } from 'react-native';
 import React from 'react';
 import {UserData} from '../utils/UserData';
-import {useNavigation} from '@react-navigation/native';
 import {SCREEN_WIDTH, vh, vw} from '../utils/dimension';
 import MaskedView from '@react-native-masked-view/masked-view';
 import LinearGradient from 'react-native-linear-gradient';
 
 const Stories = ({navigation}) => {
-  // const navigation = useNavigation();
 
   const renderItem = ({item}) => {
     return (
@@ -32,7 +30,7 @@ const Stories = ({navigation}) => {
           </MaskedView>
 
           <View style={styles.innerCircle}>
-            <Image style={styles.storyImage} source={item.story.image} />
+            <Image style={styles.storyImage} source={item.profile} />
           </View>
         </TouchableOpacity>
 
@@ -59,11 +57,12 @@ export default Stories;
 const styles = StyleSheet.create({
   mainContainer: {
     flexDirection: 'row',
-    paddingVertical: vh(4),
+    paddingVertical: vh(3),
     marginLeft: vw(5),
   },
   storyContainer: {
     paddingVertical: vh(3),
+    // borderWidth:1,
     paddingHorizontal: vw(6),
   },
   maskedView: {
