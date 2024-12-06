@@ -15,8 +15,20 @@ export const UserData = [
       caption: 'Hi Everyone, Elon musk is here',
       like: 3333,
       comments: [
-        {id: 1, username: 'tech_guru', comment: 'This is amazing!'},
-        {id: 2, username: 'space_fan', comment: 'Keep going, Elon!'},
+        {
+          id: 1,
+          username: 'tech_guru',
+          comment: 'This is amazing!',
+          image:
+            'https://images.pexels.com/photos/13326697/pexels-photo-13326697.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+        },
+        {
+          id: 2,
+          username: 'space_fan',
+          comment: 'Keep going, Elon!',
+          image:
+            'https://images.pexels.com/photos/13326697/pexels-photo-13326697.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+        },
       ],
     },
   },
@@ -36,8 +48,20 @@ export const UserData = [
       caption: 'hi....',
       like: 25,
       comments: [
-        {id: 3, username: 'comedy_fan', comment: 'Loved the video!'},
-        {id: 4, username: 'funny_vibes', comment: 'Keep it up, Harsh!'},
+        {
+          id: 3,
+          username: 'comedy_fan',
+          comment: 'Loved the video!',
+          image:
+            'https://images.pexels.com/photos/13326697/pexels-photo-13326697.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+        },
+        {
+          id: 4,
+          username: 'funny_vibes',
+          comment: 'Keep it up, Harsh!',
+          image:
+            'https://images.pexels.com/photos/13326697/pexels-photo-13326697.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+        },
       ],
     },
   },
@@ -57,8 +81,20 @@ export const UserData = [
       caption: 'Congratulations!! Team India 🇮🇳',
       like: 99,
       comments: [
-        {id: 5, username: 'india_love', comment: 'Proud moment!'},
-        {id: 6, username: 'patriot', comment: 'Jai Hind!'},
+        {
+          id: 5,
+          username: 'india_love',
+          comment: 'Proud moment!',
+          image:
+            'https://images.pexels.com/photos/13326697/pexels-photo-13326697.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+        },
+        {
+          id: 6,
+          username: 'patriot',
+          comment: 'Jai Hind!',
+          image:
+            'https://images.pexels.com/photos/13326697/pexels-photo-13326697.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+        },
       ],
     },
   },
@@ -78,8 +114,20 @@ export const UserData = [
       caption: 'No edit, No touch ups...',
       like: 88,
       comments: [
-        {id: 7, username: 'fashionista', comment: 'Looking gorgeous!'},
-        {id: 8, username: 'style_guru', comment: 'Flawless!'},
+        {
+          id: 7,
+          username: 'fashionista',
+          comment: 'Looking gorgeous!',
+          image:
+            'https://images.pexels.com/photos/13326697/pexels-photo-13326697.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+        },
+        {
+          id: 8,
+          username: 'style_guru',
+          comment: 'Flawless!',
+          image:
+            'https://images.pexels.com/photos/13326697/pexels-photo-13326697.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+        },
       ],
     },
   },
@@ -89,7 +137,7 @@ export const UserData = [
     username: 'rohitsharma45',
     profile: require('../assets/data/rohitdp.jpg'),
     story: {
-      time: '1h',
+      time: 14,
       image: require('../assets/data/rohitstory.jpg'),
     },
     post: {
@@ -97,10 +145,22 @@ export const UserData = [
       date: '12/05/2023',
       image: require('../assets/data/rohitpost.jpg'),
       caption: 'What a series win!!🇮🇳',
-      like: 88,
+      like: 18,
       comments: [
-        {id: 9, username: 'fashionista', comment: 'Looking gorgeous!'},
-        {id: 10, username: 'style_guru', comment: 'Flawless!'},
+        {
+          id: 9,
+          username: 'fashionista',
+          comment: 'Looking gorgeous!',
+          image:
+            'https://images.pexels.com/photos/13326697/pexels-photo-13326697.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+        },
+        {
+          id: 10,
+          username: 'style_guru',
+          comment: 'Flawless!',
+          image:
+            'https://images.pexels.com/photos/13326697/pexels-photo-13326697.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+        },
       ],
     },
   },

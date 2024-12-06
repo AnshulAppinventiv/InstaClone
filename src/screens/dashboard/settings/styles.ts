@@ -1,5 +1,5 @@
 import {StyleSheet} from 'react-native';
-import { SCREEN_WIDTH, vw, vh} from '../../../utils/dimension';
+import {SCREEN_WIDTH, vw, vh} from '../../../utils/dimension';
 
 const styles = StyleSheet.create({
   container: {
@@ -20,26 +20,38 @@ const styles = StyleSheet.create({
     marginLeft: vw(12),
     color: 'grey',
   },
+  header: {
+    paddingVertical: 8,
+    backgroundColor: '#f7f7f7',
+    borderRadius: 6,
+    marginBottom: 4,
+  },
+  logoutText: {
+    fontSize: 16,
+    fontWeight: '500',
+    color: '#E34D4D',
+  },
   item: {
     paddingHorizontal: vw(16),
     paddingVertical: 12,
     borderBottomColor: '#eee',
-    flexDirection:'row',
-    justifyContent:'space-between',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
-  listImage:{
-    width:vw(24),
-    height:vw(24),
-    resizeMode:'contain',
+  listImage: {
+    width: vw(24),
+    height: vw(24),
+    resizeMode: 'contain',
   },
   itemText: {
     fontSize: 17,
+    marginLeft: vw(10),
   },
-  rightIcon:{
-    width:vw(14),
-    height:vw(14),
-    resizeMode:'contain',
-    tintColor:'grey',
+  rightIcon: {
+    width: vw(14),
+    height: vw(14),
+    resizeMode: 'contain',
+    tintColor: 'grey',
   },
 });
 

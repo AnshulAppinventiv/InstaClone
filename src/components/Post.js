@@ -4,8 +4,8 @@ import CustomModal from './CustomModal';
 import MoreModal from './moreModal';
 import {vw, vh, SCREEN_WIDTH} from '../utils/dimension';
 import React, {useState, useRef} from 'react';
-import { useSelector,useDispatch } from 'react-redux';
-import { addSavedPost,removeSavedPost } from '../redux/slices/savedPostSlice';
+import {useSelector, useDispatch} from 'react-redux';
+import {addSavedPost, removeSavedPost} from '../redux/slices/savedPostSlice';
 import {
   View,
   Text,
@@ -15,13 +15,12 @@ import {
   Animated,
   TouchableWithoutFeedback,
 } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import {useNavigation} from '@react-navigation/native';
 
 const Post = () => {
-  const dispatch = useDispatch(); // Use to dispatch actions
+  const dispatch = useDispatch();
   const savedPostIds = useSelector(state => state.savedPost.savedPostIds);
   const navigation = useNavigation();
-
 
   const animatedScales = useRef({});
   const lastTaps = useRef({});
@@ -34,7 +33,7 @@ const Post = () => {
       id: item.id,
       liked: false,
       likeCount: item.post.like,
-      isSaved:  savedPostIds.includes(item.id),
+      isSaved: savedPostIds.includes(item.id),
     })),
   );
 
@@ -62,13 +61,12 @@ const Post = () => {
   };
 
   const handleSavePress = postId => {
-    // const postToSave = posts.find(post => post.id === postId);
     const isPostSaved = savedPostIds.includes(postId);
 
     if (isPostSaved) {
-      dispatch(removeSavedPost(postId)); // Remove from saved posts
+      dispatch(removeSavedPost(postId));
     } else {
-      dispatch(addSavedPost(postId)); // Add to saved posts
+      dispatch(addSavedPost(postId));
     }
     setPosts(prevPosts =>
       prevPosts.map(post =>
@@ -197,7 +195,7 @@ const Post = () => {
                     />
                   </TouchableOpacity>
 
-                  <TouchableOpacity onPress={()=> navigation.navigate('SavedPost')}>
+                  <TouchableOpacity activeOpacity={1.0}>
                     <Image
                       style={styles.shareImg}
                       source={require('../assets/icon/share.png')}
@@ -221,12 +219,6 @@ const Post = () => {
                 <Text style={styles.nameInCaption}>{item.username} </Text>
                 <Text>{item.post.caption}</Text>
               </View>
-
-              {/* <CustomModal
-              visible={isCommentModalVisible}
-              // onClose={() => setIsCommentModalVisible(false)}
-              // data={selectedPostComments}
-            /> */}
             </View>
           );
         })}
@@ -254,7 +246,6 @@ const styles = StyleSheet.create({
     marginBottom: vh(16),
   },
   postHeader: {
-    // paddingVertical: vh(2),
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',

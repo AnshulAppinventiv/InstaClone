@@ -41,20 +41,26 @@ const styles = StyleSheet.create({
     color: 'grey',
   },
   headerIconContainer: {
-    width: SCREEN_WIDTH / 4,
+    width: SCREEN_WIDTH / 3.8,
     flexDirection: 'row',
     padding: vh(10),
     justifyContent: 'space-between',
+    alignItems:'center',
   },
   notificationIcon: {
-    width: vw(25),
-    height: vw(25),
-    // marginLeft: 15,
+    width: vw(23),
+    height: vw(23),
+    resizeMode:'contain',
+  },
+  videoIcon:{
+    width:vw(30),
+    height:vw(30),
+    resizeMode:'contain'
   },
   messageView: {
-    padding: 10,
+    padding: vw(10),
     borderRadius: 20,
-    marginBottom: 5,
+    marginBottom: vh(5),
     flexDirection: 'row',
   },
   messageText: {
@@ -63,15 +69,14 @@ const styles = StyleSheet.create({
   timeTextView: {
     fontSize: 12,
     color: '#888',
-    marginBottom: 10,
-    // marginHorizontal:5
+    marginBottom: vh(10),
   },
   reactionView: {
-    marginTop: 5,
-    padding: 5,
+    marginTop: vh(5),
+    padding: vw(5),
   },
   sendButton: {
-    padding: 6,
+    padding: vw(6),
     alignSelf: 'center',
     // backgroundColor:'#F4F4F4'
   },
@@ -79,41 +84,8 @@ const styles = StyleSheet.create({
     width: vw(22),
     height: vw(22),
     resizeMode:'contain',
-    marginLeft: 10,
+    marginLeft: vw(10),
     // alignSelf:'center'
-  },
-  RBContainer: {
-    padding: 20,
-  },
-  RBContainerItem: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: 10,
-  },
-  RBtext: {
-    marginLeft: 10,
-    fontSize: 16,
-  },
-  eyeIcon: {
-    width: 25,
-    height: 25,
-  },
-  pinIcon: {
-    width: 25,
-    height: 25,
-  },
-  searchIcon: {
-    width: 25,
-    height: 25,
-  },
-  bottomSheetContainer: {
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
-    backgroundColor: '#fff',
-    padding: 20,
-  },
-  bottomSheetWrapper: {
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
   },
   inputToolbar: {
     backgroundColor: '#F4F4F4',

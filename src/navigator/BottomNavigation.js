@@ -44,7 +44,12 @@ const UserProfileTabIcon = () => (
 
 const BottomNavigation = () => {
   return (
-    <Tab.Navigator screenOptions={{headerShown: false, tabBarShowLabel: false}}>
+    <Tab.Navigator
+      screenOptions={{
+        headerShown: false,
+        tabBarShowLabel: false,
+        unmountOnBlur: true,
+      }}>
       <Tab.Screen
         name="Home"
         component={Dashboard}

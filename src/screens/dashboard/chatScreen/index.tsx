@@ -1,4 +1,6 @@
-import React, { useEffect, useRef, useState} from 'react';
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable react-native/no-inline-styles */
+import React, {useEffect, useRef, useState} from 'react';
 import {Image, SafeAreaView, Text, TouchableOpacity, View} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {GiftedChat, InputToolbar, Message} from 'react-native-gifted-chat';
@@ -10,7 +12,6 @@ const ChatScreen = ({route, navigation}: any) => {
   const user = route.params.UserData;
   const chatId = route.params.UserData.id;
   const [messages, setMessages]: any = useState([{}]);
-  const refRBSheet: any = useRef();
   const [inputText, setinputText] = useState('');
   const [imageUri, setImageUri]: any = useState();
 
@@ -187,7 +188,7 @@ const ChatScreen = ({route, navigation}: any) => {
               style={styles.backIcon}
             />
           </TouchableOpacity>
-          <TouchableOpacity style={styles.profileContainer}>
+          <TouchableOpacity activeOpacity={1.0} style={styles.profileContainer}>
             <Image source={user.profile} style={styles.profileImg} />
           </TouchableOpacity>
           <View style={styles.userInfoTextContainer}>
@@ -196,16 +197,16 @@ const ChatScreen = ({route, navigation}: any) => {
           </View>
         </View>
         <View style={styles.headerIconContainer}>
-          <TouchableOpacity onPress={() => refRBSheet.current.open()}>
+          <TouchableOpacity activeOpacity={1.0}>
             <Image
               source={require('../../../assets/icon/telephone.png')}
               style={styles.notificationIcon}
             />
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => refRBSheet.current.open()}>
+          <TouchableOpacity activeOpacity={1.0}>
             <Image
               source={require('../../../assets/icon/video.png')}
-              style={styles.notificationIcon}
+              style={styles.videoIcon}
             />
           </TouchableOpacity>
         </View>
@@ -225,39 +226,6 @@ const ChatScreen = ({route, navigation}: any) => {
         renderMessage={renderMessage}
         renderSend={renderSend}
       />
-      <RBSheet
-        ref={refRBSheet}
-        height={250}
-        openDuration={250}
-        closeDuration={250}
-        customStyles={{
-          container: styles.bottomSheetContainer,
-          wrapper: styles.bottomSheetWrapper,
-        }}>
-        <View style={styles.RBContainer}>
-          <TouchableOpacity style={styles.RBContainerItem}>
-            <Image
-              source={require('../../../assets/footer/homeButton.png')}
-              style={styles.eyeIcon}
-            />
-            <Text style={styles.RBtext}>View details</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.RBContainerItem}>
-            <Image
-              source={require('../../../assets/footer/homeButton.png')}
-              style={styles.pinIcon}
-            />
-            <Text style={styles.RBtext}>Pin Chat</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.RBContainerItem}>
-            <Image
-              source={require('../../../assets/footer/homeButton.png')}
-              style={styles.searchIcon}
-            />
-            <Text style={styles.RBtext}>Search Chat</Text>
-          </TouchableOpacity>
-        </View>
-      </RBSheet>
     </SafeAreaView>
   );
 };

@@ -1,5 +1,5 @@
 import {StyleSheet} from 'react-native';
-import { vh,vw } from '../../../utils/dimension';
+import {vh, vw} from '../../../utils/dimension';
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -8,44 +8,44 @@ export const styles = StyleSheet.create({
   header: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#fff',
-    justifyContent: 'space-between',
-    marginHorizontal: vw(20),
-    marginBottom: vh(10),
+    padding: vw(16),
   },
-  backButton: {
-    fontSize: 24,
-    color: '#000',
-    marginRight: vw(8),
+  backImg: {
+    width: vw(26),
+    height: vw(24),
   },
-  title: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    color: '#000',
-    //   alignSelf:'center',
-    //   textAlign:'center',
-    //   backgroundColor:'red'
+  idContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginLeft: vw(30),
+  },
+  id: {
+    fontSize: 22,
+    fontWeight: '600',
+    color: 'black',
+    textAlign: 'center',
   },
   profileSection: {
     alignItems: 'center',
     marginBottom: vh(20),
   },
   profileImage: {
-    width: vh(100),
-    height: vh(100),
+    width: vw(80),
+    height: vw(80),
     borderRadius: 50,
     marginBottom: vh(8),
   },
   editPicture: {
     color: '#1E90FF',
     fontSize: 16,
+    fontWeight: '500',
   },
   inputGroup: {
     marginBottom: vh(20),
   },
   label: {
     fontSize: 16,
-    fontWeight:'500',
+    fontWeight: '500',
     color: '#555',
     marginBottom: vh(8),
     marginHorizontal: vw(20),
@@ -91,7 +91,6 @@ export const styles = StyleSheet.create({
     justifyContent: 'space-between',
     marginHorizontal: vw(15),
     marginVertical: vw(10),
-      //  backgroundColor:'green',
   },
   bgColor: {
     flex: 1,
@@ -113,11 +112,11 @@ export const styles = StyleSheet.create({
     width: vw(27),
   },
   iconImageSize: {
-    height: vw(35),
-    width: vw(35),
+    height: vw(26),
+    width: vw(30),
+    resizeMode: 'contain',
     borderRadius: 15,
     marginHorizontal: vw(10),
-    // backgroundColor:'red',
   },
   textArrange: {
     justifyContent: 'center',

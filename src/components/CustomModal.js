@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import {
   Modal,
@@ -11,25 +12,30 @@ import {
 } from 'react-native';
 import {UserData} from '../utils/UserData';
 import {vh, vw, SCREEN_HEIGHT, SCREEN_WIDTH} from '../utils/dimension';
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 
 const CustomModal = ({visible, onClose, data}) => {
-  const [commentData, setCommentData] = useState(
-    data.map(item => ({
-      ...item, // spread the original item properties
-      liked: false, // Add a liked status to each comment
-    }))
-  );
+  const [commentData, setCommentData] = useState(data);
+
+  useEffect(() => {
+    if (data) {
+      setCommentData(
+        data.map(item => ({
+          ...item,
+          liked: item.liked || false,
+        })),
+      );
+    }
+  }, [data, visible]);
 
   const handleLikePress = id => {
     setCommentData(prevComments =>
       prevComments.map(comment =>
-        comment.id === id
-          ? { ...comment, liked: !comment.liked } // Toggle like status
-          : comment
-      )
+        comment.id === id ? {...comment, liked: !comment.liked} : comment,
+      ),
     );
   };
+
   return (
     <Modal visible={visible} animationType="slide" transparent={true}>
       <TouchableWithoutFeedback onPress={onClose}>
@@ -43,21 +49,33 @@ const CustomModal = ({visible, onClose, data}) => {
             </View>
             <View style={styles.listContainer}>
               <FlatList
-                data={data}
+                data={commentData}
                 keyExtractor={item => item.id.toString()}
                 renderItem={({item}) => (
                   <View style={styles.commentItem}>
-                    <View style={styles.commentTextContainer}>
-                      <Text style={styles.username}>{item.username}</Text>
-                      <Text style={styles.commentText}>{item.comment}</Text>
-                      <Text style={styles.replyText}>Reply</Text>
+                    <View style={{flexDirection: 'row'}}>
+                      <Image
+                        source={{uri: item.image}}
+                        style={{
+                          width: vw(34),
+                          height: vw(34),
+                          borderRadius: 40,
+                          marginRight: vw(10),
+                          marginTop: vh(6),
+                        }}
+                      />
+                      <View style={styles.commentTextContainer}>
+                        <Text style={styles.username}>{item.username}</Text>
+                        <Text style={styles.commentText}>{item.comment}</Text>
+                        <Text style={styles.replyText}>Reply</Text>
+                      </View>
                     </View>
                     <TouchableOpacity onPress={() => handleLikePress(item.id)}>
                       <Image
                         source={
                           item.liked
-                            ? require('../assets/icon/Liked.png') // Liked image
-                            : require('../assets/icon/Like.png') // Default Like image
+                            ? require('../assets/icon/Liked.png')
+                            : require('../assets/icon/Like.png')
                         }
                         style={styles.likeImg}
                       />

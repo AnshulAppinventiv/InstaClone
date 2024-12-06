@@ -12,7 +12,7 @@ const Header = () => {
         source={require('../assets/icon/Instagram.png')}
       />
       <View style={styles.iconContainer}>
-        <TouchableOpacity style={styles.likeImg}>
+        <TouchableOpacity style={styles.likeImg} onPress={()=>navigation.navigate('NotificationScreen')}>
           <Image source={require('../assets/icon/Like.png')} />
         </TouchableOpacity>
         <TouchableOpacity onPress={() => navigation.navigate('Chats')}>

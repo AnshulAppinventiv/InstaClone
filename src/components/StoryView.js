@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
 import {
   View,
@@ -6,58 +7,123 @@ import {
   TextInput,
   TouchableOpacity,
   StyleSheet,
+  Animated,
+  Pressable,
 } from 'react-native';
-import React, {useEffect} from 'react';
+import React, {useState, useEffect} from 'react';
 import {SafeAreaView} from 'react-native-safe-area-context';
+import {UserData} from '../utils/UserData';
 import {vw, vh, SCREEN_HEIGHT, SCREEN_WIDTH} from '../utils/dimension';
 
 const StoryView = ({navigation, route}) => {
-  console.log(route.params);
-  const selectedItem = route.params.item;
-  const currentTime = new Date();
-  const currentHr = currentTime.getHours();
-  const storyTime = currentHr - selectedItem.story.time;
+  const [currentIndex, setCurrentIndex] = useState(route.params.index || 0);
+  const [progress, setProgress] = useState(new Animated.Value(0));
+  const progressDuration = 5000;
+  const selectedItem = UserData[currentIndex];
 
   useEffect(() => {
-    const timeout = setTimeout(() => {
+    startProgressBar();
+
+    const timer = setTimeout(() => {
+      goToNextStory();
+    }, progressDuration);
+
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [currentIndex]);
+
+  const startProgressBar = () => {
+    setProgress(new Animated.Value(0));
+    Animated.timing(progress, {
+      toValue: 1,
+      duration: progressDuration,
+      useNativeDriver: false,
+    }).start();
+  };
+
+  const goToNextStory = () => {
+    if (currentIndex < UserData.length - 1) {
+      setCurrentIndex(currentIndex + 1);
+    } else {
       navigation.goBack();
-    }, 1000);
-  }, [navigation]);
+    }
+  };
+
+  const goToPreviousStory = () => {
+    if (currentIndex > 0) {
+      setCurrentIndex(currentIndex - 1);
+    } else {
+      navigation.goBack();
+    }
+  };
+
+  const handleStoryPress = e => {
+    const clickX = e.nativeEvent.locationX;
+    if (clickX > SCREEN_WIDTH / 2) {
+      goToNextStory();
+    } else {
+      goToPreviousStory();
+    }
+  };
+
+  const storyTime = selectedItem.story.time;
 
   return (
     <SafeAreaView style={styles.mainContainer}>
       <View style={styles.header}>
+        <View style={{flexDirection:'row',alignItems:'center'}}>
         <Image style={styles.profileImg} source={selectedItem.profile} />
         <Text style={styles.userName}>{selectedItem.name}</Text>
         <Text style={styles.time}>{storyTime}h</Text>
-      </View>
-      <View>
-        <Image source={selectedItem.story.image} style={styles.storyImg} />
-        <View style={styles.footerContainer}>
-          <TouchableOpacity>
-            <Image
-              style={styles.icon}
-              source={require('../assets/icon/Comment.png')}
-            />
-          </TouchableOpacity>
-          <TextInput
-            style={styles.msgInput}
-            placeholder="Message"
-            placeholderTextColor={'white'}
-          />
-          <TouchableOpacity style={styles.likeButton}>
-            <Image
-              style={styles.icon}
-              source={require('../assets/icon/Like.png')}
-            />
-          </TouchableOpacity>
-          <TouchableOpacity>
-            <Image
-              style={styles.icon}
-              source={require('../assets/icon/share.png')}
-            />
-          </TouchableOpacity>
         </View>
+        <Image
+        source={require('../assets/icon/more.png')}
+        style={{width:vw(22),height:vh(16),resizeMode:'contain',tintColor:'white'}}/>
+      </View>
+
+      <View style={styles.progressBarContainer}>
+        <Animated.View
+          style={[
+            styles.progressBar,
+            {
+              width: progress.interpolate({
+                inputRange: [0, 1],
+                outputRange: ['0%', '100%'],
+              }),
+            },
+          ]}
+        />
+      </View>
+
+      <Pressable style={styles.touchableArea} onPress={handleStoryPress}>
+        <Image source={selectedItem.post.image} style={styles.storyImg} />
+      </Pressable>
+
+      <View style={styles.footerContainer}>
+        <TouchableOpacity>
+          <Image
+            style={styles.icon}
+            source={require('../assets/icon/Comment.png')}
+          />
+        </TouchableOpacity>
+        <TextInput
+          style={styles.msgInput}
+          placeholder="Message"
+          placeholderTextColor={'white'}
+        />
+        <TouchableOpacity style={styles.likeButton}>
+          <Image
+            style={styles.icon}
+            source={require('../assets/icon/Like.png')}
+          />
+        </TouchableOpacity>
+        <TouchableOpacity>
+          <Image
+            style={styles.icon}
+            source={require('../assets/icon/share.png')}
+          />
+        </TouchableOpacity>
       </View>
     </SafeAreaView>
   );
@@ -72,11 +138,12 @@ const styles = StyleSheet.create({
   },
   header: {
     flexDirection: 'row',
-    paddingTop: vh(12),
-    paddingLeft: vw(12),
-    alignItems: 'center',
+    justifyContent:'space-between',
+    alignItems:'center',
+    paddingHorizontal: vw(12),
     position: 'relative',
     zIndex: 1,
+    marginBottom:10,
   },
   profileImg: {
     height: vw(32),
@@ -91,16 +158,17 @@ const styles = StyleSheet.create({
     color: 'white',
   },
   time: {
-    fontSize: 18,
+    fontSize: 16,
     fontWeight: '400',
     marginLeft: vw(10),
-    color: 'white',
+    color: 'grey',
   },
   storyImg: {
     height: SCREEN_HEIGHT / 1.25,
     width: SCREEN_WIDTH,
     borderBottomRightRadius: 15,
     borderBottomLeftRadius: 15,
+    resizeMode:'cover',
   },
   footerContainer: {
     width: SCREEN_WIDTH,

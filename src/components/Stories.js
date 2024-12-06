@@ -13,11 +13,11 @@ import MaskedView from '@react-native-masked-view/masked-view';
 import LinearGradient from 'react-native-linear-gradient';
 
 const Stories = ({navigation}) => {
-
-  const renderItem = ({item}) => {
+  const renderItem = ({item,index}) => {
     return (
       <View style={styles.storyContainer}>
-        <TouchableOpacity onPress={() => navigation.navigate('StoryView', {item})}>
+        <TouchableOpacity
+          onPress={() => navigation.navigate('StoryView', {index})}>
           <MaskedView
             style={styles.maskedView}
             maskElement={<View style={styles.storyView} />}>

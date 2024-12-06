@@ -3,8 +3,6 @@ export const loginInitialValue = {
   username: '',
   password: '',
 };
-
-// Custom validation function for login form
 export const validateLogin = (values) => {
   const errors = {};
 

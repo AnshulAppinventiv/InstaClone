@@ -6,14 +6,29 @@ import {
   FlatList,
   StyleSheet,
 } from 'react-native';
-import React, {useState} from 'react';
-import {UserData, typeData} from '../utils/UserData';
+import React, {useEffect, useState} from 'react';
+import {typeData} from '../utils/UserData';
+import {MyData} from '../utils/MyData';
 import {vw, vh} from '../utils/dimension';
 import {useNavigation} from '@react-navigation/native';
 
-const ProfilePost = () => {
+const ProfilePost = ({newPost}) => {
   const navigation = useNavigation();
+  const [posts, setPosts] = useState(MyData);
   const [selected, setSelected] = useState(1);
+
+  useEffect(() => {
+    if (newPost) {
+      const newPostEntry = {
+        id: Date.now(),
+        post: newPost,
+      };
+
+      setPosts(prevPosts => {
+        return [newPostEntry,...prevPosts];
+      });
+    }
+  }, [newPost]);
 
   const renderItem = item => {
     return (
@@ -21,7 +36,7 @@ const ProfilePost = () => {
         onPress={() => navigation.navigate('ProfilePosts', {index: item.index})}
         activeOpacity={0.8}
         style={styles.postContainer}>
-        <Image style={styles.postImg} source={item.item.post.image} />
+        <Image style={styles.postImg} source={{uri: item.item.post.image}} />
       </TouchableOpacity>
     );
   };
@@ -47,7 +62,7 @@ const ProfilePost = () => {
       </View>
       {selected === 1 && (
         <FlatList
-          data={UserData}
+          data={posts}
           renderItem={renderItem}
           keyExtractor={item => item.id.toString()}
           numColumns={3}
@@ -75,8 +90,9 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
   },
   postContainer: {
-    marginTop: vh(3),
-    marginRight: vw(3),
+    marginTop: vh(2),
+    backgroundColor: 'red',
+    marginRight: vw(2),
   },
   postImg: {
     height: vw(124),

@@ -38,14 +38,14 @@ const SingleReel = ({item, index, currentIndex}) => {
             repeat={true}
             resizeMode="cover"
             paused={currentIndex === index ? false : true}
-            source={item.video}
+            source={{uri:item.video}}
             muted={mute}
             style={styles.reels}
           />
         </TouchableOpacity>
         <View style={styles.details}>
           <View>
-            <TouchableOpacity>
+            <TouchableOpacity activeOpacity={1.0}>
               <View style={styles.userDetails}>
                 <View style={styles.profileImg}>
                   <Image source={item.postProfile} style={styles.img} />
@@ -60,7 +60,7 @@ const SingleReel = ({item, index, currentIndex}) => {
           </View>
         </View>
         <View style={styles.iconsContainer}>
-          <TouchableOpacity style={styles.icons}>
+          <TouchableOpacity activeOpacity={0.9}style={styles.icons} onPress={()=>setLike(!like)}>
             <Image
               source={
                 like
@@ -69,7 +69,7 @@ const SingleReel = ({item, index, currentIndex}) => {
               }
               style={styles.likeImg}
             />
-            <Text style={styles.likeCounts}>{item.likes}</Text>
+          <Text style={styles.likeCounts}>{item.likes}</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.icons}>
             <Image
@@ -132,7 +132,7 @@ const styles = StyleSheet.create({
     padding: vw(10),
   },
   userDetails: {
-    width: vw(100),
+    width:vw(150),
     flexDirection: 'row',
     alignItems: 'center',
   },
@@ -174,7 +174,6 @@ const styles = StyleSheet.create({
     height: vw(23),
     width: vw(23),
     resizeMode:'contain',
-    tintColor: 'white',
   },
   likeCounts: {
     color: 'white',
@@ -197,7 +196,7 @@ const styles = StyleSheet.create({
   },
   threeDots: {
     width: vw(24),
-    height: vw(24),
+    height: vw(19),
     tintColor: 'white',
     resizeMode:'contain',
   },
