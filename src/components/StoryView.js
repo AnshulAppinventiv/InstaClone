@@ -1,31 +1,42 @@
+/* eslint-disable react-native/no-inline-styles */
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
+
+import React, {useState, useEffect} from 'react';
 import {
+  SafeAreaView,
+  StyleSheet,
+  StatusBar,
   View,
   Text,
   Image,
+  Pressable,
   TextInput,
   TouchableOpacity,
-  StyleSheet,
   Animated,
-  Pressable,
 } from 'react-native';
-import React, {useState, useEffect} from 'react';
-import {SafeAreaView} from 'react-native-safe-area-context';
 import {UserData} from '../utils/UserData';
-import {vw, vh, SCREEN_HEIGHT, SCREEN_WIDTH} from '../utils/dimension';
+import {vw, vh, SCREEN_WIDTH, SCREEN_HEIGHT} from '../utils/dimension';
 
 const StoryView = ({navigation, route}) => {
   const [currentIndex, setCurrentIndex] = useState(route.params.index || 0);
-  const [progress, setProgress] = useState(new Animated.Value(0));
+  const progress = new Animated.Value(0);
   const progressDuration = 5000;
   const selectedItem = UserData[currentIndex];
+  const startProgressAnimation = () => {
+    progress.setValue(0);
+    Animated.timing(progress, {
+      toValue: 5,
+      duration: progressDuration,
+      useNativeDriver: false,
+    }).start();
+  };
 
   useEffect(() => {
-    startProgressBar();
+    startProgressAnimation();
 
     const timer = setTimeout(() => {
-      goToNextStory();
+      navigation.goBack();
     }, progressDuration);
 
     return () => {
@@ -33,14 +44,10 @@ const StoryView = ({navigation, route}) => {
     };
   }, [currentIndex]);
 
-  const startProgressBar = () => {
-    setProgress(new Animated.Value(0));
-    Animated.timing(progress, {
-      toValue: 1,
-      duration: progressDuration,
-      useNativeDriver: false,
-    }).start();
-  };
+  const progressAnimation = progress.interpolate({
+    inputRange: [0, 5],
+    outputRange: ['0%', '100%'],
+  });
 
   const goToNextStory = () => {
     if (currentIndex < UserData.length - 1) {
@@ -48,6 +55,7 @@ const StoryView = ({navigation, route}) => {
     } else {
       navigation.goBack();
     }
+    startProgressAnimation();
   };
 
   const goToPreviousStory = () => {
@@ -56,6 +64,7 @@ const StoryView = ({navigation, route}) => {
     } else {
       navigation.goBack();
     }
+    startProgressAnimation();
   };
 
   const handleStoryPress = e => {
@@ -71,32 +80,41 @@ const StoryView = ({navigation, route}) => {
 
   return (
     <SafeAreaView style={styles.mainContainer}>
+      <StatusBar backgroundColor={'black'} barStyle={'light-content'} />
+      <View
+        style={{
+          width: SCREEN_WIDTH - 10,
+          height: 3,
+          borderWidth: 1,
+          backgroundColor: 'gray',
+          marginBottom: vh(8),
+        }}>
+        <Animated.View
+          style={{
+            height: '100%',
+            backgroundColor: 'white',
+            width: progressAnimation,
+          }}
+        />
+      </View>
       <View style={styles.header}>
-        <View style={{flexDirection:'row',alignItems:'center'}}>
-        <Image style={styles.profileImg} source={selectedItem.profile} />
-        <Text style={styles.userName}>{selectedItem.name}</Text>
-        <Text style={styles.time}>{storyTime}h</Text>
+        <View style={{flexDirection: 'row', alignItems: 'center'}}>
+          <Image style={styles.profileImg} source={selectedItem.profile} />
+          <Text style={styles.userName}>{selectedItem.name}</Text>
+          <Text style={styles.time}>{storyTime}h</Text>
         </View>
         <Image
-        source={require('../assets/icon/more.png')}
-        style={{width:vw(22),height:vh(16),resizeMode:'contain',tintColor:'white'}}/>
-      </View>
-
-      <View style={styles.progressBarContainer}>
-        <Animated.View
-          style={[
-            styles.progressBar,
-            {
-              width: progress.interpolate({
-                inputRange: [0, 1],
-                outputRange: ['0%', '100%'],
-              }),
-            },
-          ]}
+          source={require('../assets/icon/more.png')}
+          style={{
+            width: vw(22),
+            height: vh(16),
+            resizeMode: 'contain',
+            tintColor: 'white',
+          }}
         />
       </View>
 
-      <Pressable style={styles.touchableArea} onPress={handleStoryPress}>
+      <Pressable onPress={handleStoryPress}>
         <Image source={selectedItem.post.image} style={styles.storyImg} />
       </Pressable>
 
@@ -138,12 +156,12 @@ const styles = StyleSheet.create({
   },
   header: {
     flexDirection: 'row',
-    justifyContent:'space-between',
-    alignItems:'center',
+    justifyContent: 'space-between',
+    alignItems: 'center',
     paddingHorizontal: vw(12),
     position: 'relative',
     zIndex: 1,
-    marginBottom:10,
+    marginBottom: 10,
   },
   profileImg: {
     height: vw(32),
@@ -168,7 +186,7 @@ const styles = StyleSheet.create({
     width: SCREEN_WIDTH,
     borderBottomRightRadius: 15,
     borderBottomLeftRadius: 15,
-    resizeMode:'cover',
+    resizeMode: 'cover',
   },
   footerContainer: {
     width: SCREEN_WIDTH,
