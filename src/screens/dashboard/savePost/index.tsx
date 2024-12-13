@@ -9,7 +9,7 @@ import {
 import React from 'react';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {useNavigation} from '@react-navigation/native';
-import {vw, vh} from '../../../utils/dimension';
+import { vw } from '../../../utils/dimension';
 import {useSelector} from 'react-redux';
 import {UserData} from '../../../utils/UserData';
 
@@ -39,7 +39,9 @@ const SavedPost = () => {
           keyExtractor={item => item.id.toString()}
           numColumns={3}
           renderItem={({item}) => (
-            <TouchableOpacity activeOpacity={0.9} style={{marginBottom:2,marginRight:2}}>
+            <TouchableOpacity
+              activeOpacity={0.9}
+              style={{marginBottom: 2, marginRight: 2}}>
               <Image
                 source={item.post.image}
                 style={{height: vw(124), width: vw(124)}}

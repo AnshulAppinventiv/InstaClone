@@ -1,11 +1,11 @@
 import React from 'react';
 import ProfileHeader from '../../../components/ProfileHeader';
 import ProfileDetails from '../../../components/ProfileDetails';
-import ProfilePost from '../../../components/ProfilePost';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {styles} from './styles';
+import ProfilePost from '../../../components/ProfilePost'
 
-const UserProfile = ({route}) => {
+const UserProfile = ({route}:any) => {
   const {name, userName, bio, imageUri, newPost} = route.params || {};
   return (
     <SafeAreaView style={styles.mainContainer}>
