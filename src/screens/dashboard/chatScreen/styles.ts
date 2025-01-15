@@ -88,25 +88,20 @@ const styles = StyleSheet.create({
     // alignSelf:'center'
   },
   inputToolbar: {
-    backgroundColor: '#F4F4F4',
     borderRadius: 30,
     marginHorizontal: 15,
     borderWidth: 0.2,
     bottom: 10,
     borderColor: 'grey',
-    fontSize: 50,
   },
   actionButton: {
-    marginLeft: 10,
-    alignSelf: 'center',
-    // backgroundColor:'#F4F4F4'
   },
   actionIcon: {
-    width: 45,
-    height: 45,
+    width: vw(40),
+    height: vw(40),
+    resizeMode:'contain',
     // alignSelf:'center',
     // backgroundColor:'red',
-    right: 10,
   },
 });
 

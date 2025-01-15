@@ -1,5 +1,5 @@
 import {StyleSheet} from 'react-native';
-import {vh, vw} from '../../../utils/dimension';
+import {SCREEN_HEIGHT, vh, vw} from '../../../utils/dimension';
 
 export const styles = StyleSheet.create({
   container: {
@@ -101,12 +101,12 @@ export const styles = StyleSheet.create({
     marginTop: vh(10),
   },
   emptyContainer: {
-    justifyContent: 'center',
+    height: SCREEN_HEIGHT / 2,
     alignItems: 'center',
-    marginTop: vh(20),
+    justifyContent: 'center',
   },
   emptyText: {
-    fontSize: 16,
+    fontSize: 18,
     color: 'gray',
   },
 });

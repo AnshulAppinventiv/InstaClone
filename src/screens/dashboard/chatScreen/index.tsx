@@ -7,6 +7,7 @@ import {GiftedChat, InputToolbar, Message} from 'react-native-gifted-chat';
 import RBSheet from 'react-native-raw-bottom-sheet';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import styles from './styles.ts';
+import { SCREEN_HEIGHT } from '../../../utils/dimension.tsx';
 
 const ChatScreen = ({route, navigation}: any) => {
   const user = route.params.UserData;

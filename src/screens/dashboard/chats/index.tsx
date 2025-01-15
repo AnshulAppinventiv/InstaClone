@@ -19,7 +19,7 @@ const Chats = () => {
     item.name.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
-  const renderItem = ({item}) => (
+  const renderItem = ({item}:any) => (
     <View style={styles.listContainer}>
       <TouchableOpacity
         onPress={() => {

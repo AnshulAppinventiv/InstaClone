@@ -15,12 +15,10 @@ import {
   Animated,
   TouchableWithoutFeedback,
 } from 'react-native';
-import {useNavigation} from '@react-navigation/native';
 
 const Post = () => {
   const dispatch = useDispatch();
   const savedPostIds = useSelector(state => state.savedPost.savedPostIds);
-  const navigation = useNavigation();
 
   const animatedScales = useRef({});
   const lastTaps = useRef({});
